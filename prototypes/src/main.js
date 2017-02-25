@@ -1,7 +1,6 @@
 const Vue = require('vue')
 const VueRouter = require('vue-router')
 
-const App = require('./App.vue')
 const Splash = require('./Splash.vue')
 const Home = require('./Home.vue')
 // so we could do the config here as a whole screen component, or
@@ -17,8 +16,8 @@ Vue.use(VueRouter)
 
 
 const routes = [
-  {path: '/', component: Home},
-  {path: '/splash', component: Splash},
+  {path: '/', component: Splash},
+  {path: '/home', component: Home},
   {path: '/board', component: GameBoard}
 ]
 
