@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <card v-for="card in cards" :card-data="card"></card>
+      <card v-for="card in cards" :card-data="card" :key="card.id"></card>
   </div>
 </template>
 

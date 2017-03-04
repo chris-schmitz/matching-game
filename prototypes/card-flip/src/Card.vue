@@ -1,8 +1,8 @@
 <template>
     <div class='card-container' @click="flip">
-        <div v-show="!faceUp" class="card-back">
+        <div v-show="!cardData.faceUp" class="card-back">
         </div>
-        <div v-show="faceUp" class="card-face" :style="cardBackground">
+        <div v-show="cardData.faceUp" class="card-face" :style="cardBackground">
         </div>
     </div>
 </template>
@@ -12,7 +12,6 @@
         props:['cardData'],
         data(){
             return{
-                faceUp: false,
             }
         },
         computed:{
@@ -24,7 +23,8 @@
         },
         methods:{
             flip(){
-                this.faceUp = !this.faceUp
+                this.$store.commit('flipCard', this.cardData)
+                // this.faceUp = !this.faceUp
             }
         }
     }
