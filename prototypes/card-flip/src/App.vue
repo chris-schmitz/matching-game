@@ -5,6 +5,9 @@
         <li>faceUpCount: {{faceUpCount}}</li>
         <li>notification: {{notification}}</li>
       </ul>
+      <notification :type="notification.type">
+        {{notification.message}}
+      </notification>
       <div class="game-board">
         <card v-for="card in cards" :card-data="card" :key="card.id"></card>
       </div>
@@ -13,10 +16,11 @@
 
 <script>
   const Card = require('./Card.vue')
+  const Notification = require('./Notification.vue')
   const { mapState, mapGetters } = require('vuex')
 
   export default {
-    components: {Card},
+    components: {Card, Notification},
     name: 'app',
     data () {
       return {
@@ -36,7 +40,10 @@
   }
 </script>
 
+
 <style lang="scss">
+  body{font-family: Arial, Helvetica, sans-serif;}
+
   .game-board{
     display: flex;
     justify-content: space-around;

@@ -89,10 +89,13 @@ const actions = {
         function handleNonMatchingSelection() {
             context.commit('notifyUser', {message: "These cards do not match.", type: 'info'})
             context.commit('lockGameplay', true)
+
             setTimeout(function() {
                 context.state.currentSelection.forEach(card => context.commit('flipCard', card))
                 context.commit('clearSelectionStack')
                 context.commit('lockGameplay', false)
+
+                context.commit('clearNotification')
             }, 3000);
         }
 
