@@ -5,7 +5,9 @@
         <li>faceUpCount: {{faceUpCount}}</li>
         <li>notification: {{notification}}</li>
       </ul>
-      <card v-for="card in cards" :card-data="card" :key="card.id"></card>
+      <div class="game-board">
+        <card v-for="card in cards" :card-data="card" :key="card.id"></card>
+      </div>
   </div>
 </template>
 
@@ -35,7 +37,7 @@
 </script>
 
 <style lang="scss">
-  #app {
+  .game-board{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
