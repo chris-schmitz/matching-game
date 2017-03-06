@@ -1,12 +1,17 @@
 <template>
   <div id="app">
+      <ul>
+        <li>matchCount: {{matchCount}}</li>
+        <li>faceUpCount: {{faceUpCount}}</li>
+        <li>notification: {{notification}}</li>
+      </ul>
       <card v-for="card in cards" :card-data="card" :key="card.id"></card>
   </div>
 </template>
 
 <script>
   const Card = require('./Card.vue')
-  const { mapState } = require('vuex')
+  const { mapState, mapGetters } = require('vuex')
 
   export default {
     components: {Card},
@@ -16,9 +21,16 @@
         msg: 'Welcome to Your Vue.js App',
       }
     },
-    computed: mapState({
-      cards: state => state.cards
-    })
+    computed: {
+      ...mapState({
+        cards: state => state.cards,
+        notification: state => state.notification
+      }),
+      ...mapGetters([
+        'matchCount',
+        'faceUpCount'
+      ])
+    }
   }
 </script>
 

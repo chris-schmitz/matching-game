@@ -1,6 +1,6 @@
 <template>
-    <div class='card-container' @click="flip">
-        <div v-show="!cardData.faceUp" class="card-back">
+    <div class='card-container'>
+        <div v-show="!cardData.faceUp" @click="flip" class="card-back">
         </div>
         <div v-show="cardData.faceUp" class="card-face" :style="cardBackground">
         </div>
@@ -8,7 +8,9 @@
 </template>
 
 <script>
-    module.exports = {
+    const {mapState} = require('vuex')
+
+    export default {
         props:['cardData'],
         data(){
             return{
@@ -19,12 +21,16 @@
                 return {
                     "background-image": `url("${this.cardData.face}")`
                 }
-            }
+            },
+            ...mapState({
+                gameboardIsLocked: state => state.lockGameBoard
+            })
         },
         methods:{
             flip(){
-                this.$store.commit('flipCard', this.cardData)
-                // this.faceUp = !this.faceUp
+                if(!this.gameboardIsLocked) {
+                    this.$store.dispatch('flipCard', this.cardData)
+                }
             }
         }
     }

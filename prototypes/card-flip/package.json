@@ -9,12 +9,17 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "babel-runtime": "^6.23.0",
+    "co": "^4.6.0",
     "vue": "^2.2.1",
     "vuex": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-regenerator": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-latest": "^6.0.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^3.0.0",
