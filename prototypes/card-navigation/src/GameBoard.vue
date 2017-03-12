@@ -1,6 +1,7 @@
 <template>
     <div class='game-board-container'>
         board
+        <button @click="backToHome">Back</button>
     </div>
 </template>
 
@@ -8,6 +9,11 @@
     module.exports = {
         data(){
             return{}
+        },
+        methods:{
+            backToHome(){
+                this.$router.push('home')
+            }
         }
     }
 </script>

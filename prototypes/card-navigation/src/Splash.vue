@@ -2,7 +2,7 @@
     <div class='splash-container'>
         <h1>The Magic Game</h1>
         <div>
-            (grid of cards goes here)
+            (grid of cards goes heres)
         </div>
     </div>
 </template>
@@ -11,6 +11,11 @@
     module.exports = {
         data(){
             return{}
+        },
+        created(){
+            setTimeout(() => {
+                this.$router.push('home')
+            }, 3000);
         }
     }
 </script>
