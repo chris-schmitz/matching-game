@@ -41,11 +41,11 @@ module.exports = {
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
-      {
-        test: /\.scss$/,
-        loader: ['style-loader', 'css-loader', 'sass-loader'],
-        exclude: /node_modules/
-      },
+      // {
+      //   test: /\.scss$/,
+      //   loader: ['style-loader', 'css-loader', 'sass-loader'],
+      //   exclude: /node_modules/
+      // },
       {
         test: /\.js$/,
         loader: 'babel-loader',
