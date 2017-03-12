@@ -8,8 +8,8 @@ import Splash from './Splash.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {path: '/', component: Home},
-  {path: '/splash', component: Splash},
+  {path: '/home', component: Home},
+  {path: '/', component: Splash},
   {path: '/game', component: GameBoard},
 ]
 

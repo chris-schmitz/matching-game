@@ -1,6 +1,9 @@
 <template>
     <div class='splash-container'>
-        splash
+        <h1>The Magic Game</h1>
+        <div>
+            (grid of cards goes here)
+        </div>
     </div>
 </template>
 
