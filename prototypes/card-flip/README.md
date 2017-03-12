@@ -24,4 +24,8 @@ npm run dev
 npm run build
 ```
 
+# Animations
+I used codepen to learn/work on the animations used here. The codepens can be found here:
+- http://codepen.io/chris-schmitz/pen/VpKVpo?editors=0110
+
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).

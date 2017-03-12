@@ -1,6 +1,6 @@
 <template>
-    <div class='home-container'>
-        home
+    <div class='app-container'>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -13,5 +13,5 @@
 </script>
 
 <style lang='scss' scoped>
-    .home-container{}
+    .app-container{}
 </style>

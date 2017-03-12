@@ -1,28 +1,24 @@
-const Vue = require('vue')
-const VueRouter = require('vue-router')
-
-const Splash = require('./Splash.vue')
-const Home = require('./Home.vue')
-// so we could do the config here as a whole screen component, or
-// we could do it as a subroute of home. The deciding factor to think
-// about would be "do we want to be able to access the config screen from
-// anywhere other than the home screen (i.e. while in game)". I kind of 
-// think we'll only need it from the home screen so consider moving this
-// to a subroute of home. 
-// const Config = require('./Config.vue')
-const GameBoard = require('./GameBoard.vue')
+import Vue from 'vue'
+import App from './App.vue'
+import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+const Main = {template: '<h1>main</h1>'}
+const Splash = {template: '<h1>splash</h1>'}
+const GameBoard = {template: '<h1>board</h1>'}
 
 const routes = [
-  {path: '/', component: Splash},
-  {path: '/home', component: Home},
-  {path: '/board', component: GameBoard}
+  {path: '/', component: Main},
+  {path: '/splash', component: Splash},
+  {path: '/game', component: GameBoard},
 ]
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({routes})
 
 new Vue({
+  render: h => {
+    return h(App)
+  },
   router
 }).$mount('#app')

@@ -1,6 +1,6 @@
-# matching-game-prototype
+# card-navigation
 
-> A web only prototype for the matching game to get some general ideas worked out.
+> A Vue.js project
 
 ## Build Setup
 

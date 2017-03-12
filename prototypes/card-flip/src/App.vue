@@ -19,7 +19,7 @@
         <div>{{notification.message}}</div>
       </notification>
       <div class="game-board">
-        <card v-for="card in cards" :card-data="card" :key="card.id"></card>
+            <card v-for="card in cards" :card-data="card" :key="card.id"></card>
       </div>
   </div>
 </template>
@@ -62,6 +62,14 @@
     > * {
       margin: 10px;
     }
+  }
+
+  .list-enter-active, .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to /* .list-leave-active for <2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
   }
 
 </style>
