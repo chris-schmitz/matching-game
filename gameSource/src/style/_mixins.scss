@@ -1,0 +1,7 @@
+@mixin card($height, $width, $backColor) {
+    height: $height;
+    width: $width;
+    background-color: $backColor;
+    border-radius: 5px;
+    border: 2px solid darken($backColor, 20%);
+}

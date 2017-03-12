@@ -4,6 +4,7 @@ import Splash from '@/components/Splash'
 import Home from '@/components/Home'
 import GameBoard from '@/components/GameBoard'
 import Settings from '@/components/Settings'
+import Styles from '@/components/Styles'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
             path: '/settings',
             name: 'Settings',
             component: Settings
+        },
+        {
+            path: '/styles',
+            name: 'Styles',
+            component: Styles
         }
     ]
 })

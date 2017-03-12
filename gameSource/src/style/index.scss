@@ -1,3 +1,4 @@
+@import 'reset';
 @import 'colors.scss';
 @import 'variables.scss';
 @import 'mixins.scss';
@@ -12,7 +13,93 @@ html,body{
 
 body{
     background-color: $purple;
+    color: $black;
     display: flex;
     align-items: stretch;
     justify-content: center;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+// I'm cribbing some of these rules from the mon project
+h1 {
+    font-size: 32px;
+    line-height: 1.12;
+    letter-spacing: -0.2px;
+}
+
+h2 {
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.2px;
+}
+
+h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    letter-spacing: -0.2px;
+}
+
+h4 {
+    font-size: 18px;
+    line-height: 1.33;
+    // letter-spacing: -0.2px;
+}
+
+h5 {
+    font-size: 16px;
+    line-height: 1.33;
+    letter-spacing: -0.2px;
+}
+
+h6 {
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.33;
+    letter-spacing: -0.2px;
+}
+
+a {
+    color: $green;
+    font-weight: bold;
+    line-height: 1.33;
+
+    &:hover {
+        text-decoration: underline;
+    }
+    &:active {
+        color: $hotpink;
+    }
+}
+
+ul, ol {
+    > li {
+        color: $purple;
+        margin-bottom: 5px;
+        &:before {
+            margin-right: 5px;
+            color: darken($green, 5%);
+        }
+    }
+}
+
+ul {
+    counter-reset: unorderedListCounter;
+    > li {
+        &:before {
+            content: counter(unorderedListCounter, square);
+        }
+    }
+}
+
+ol {
+    counter-reset: listCounter;
+    > li {
+        &:before {
+            counter-increment: listCounter;
+            content: counter(listCounter) ".";
+        }
+    }
 }
