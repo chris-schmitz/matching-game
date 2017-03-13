@@ -4,4 +4,13 @@
     background-color: $backColor;
     border-radius: 5px;
     border: 2px solid darken($backColor, 20%);
+
+    // lifted from css tricks and altered to fit mixin: https://css-tricks.com/stripes-css/
+    background: repeating-linear-gradient(
+        45deg,
+        $backColor,
+        $backColor 10px,
+        lighten($backColor, 20%) 10px,
+        lighten($backColor, 20%) 20px
+    );
 }

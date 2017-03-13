@@ -1,11 +1,16 @@
 <template>
     <div class="splash-container">
         <h1>The Matching Game</h1>
-        <h2>The Matching Game</h2>
-        <h3>The Matching Game</h3>
-        <h4>The Matching Game</h4>
-        <h5>The Matching Game</h5>
-        <h6>The Matching Game</h6>
+        <div class="board">
+            <div>
+                <div class="card"></div>
+                <div class="card"></div>
+            </div>
+            <div>
+                <div class="card"></div>
+                <div class="card"></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -19,21 +24,44 @@
 </script>
 
 <style lang="scss" scoped>
-    h1, h2 {
-        font-weight: normal;
+    @import '../style/colors';
+    @import '../style/mixins';
+
+    .splash-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .board {
+            > div {
+                > .card{
+                display: inline-block;  
+                    margin: 10px;
+                }
+            }
+
+            // there's prob both a more clever and more simple way
+            // of accomplishing this, but sometimes you feel like 
+            // doing something goofey ;P
+            > div:nth-child(1) {
+                .card:nth-child(1){
+                    @include card(120px, 100px, $hotpink);
+                }
+                .card:nth-child(2){
+                    @include card(120px, 100px, $purple);
+                }
+            }
+            > div:nth-child(2) {
+                .card:nth-child(1){
+                    @include card(120px, 100px, $purple);
+                }
+                .card:nth-child(2){
+                    @include card(120px, 100px, $hotpink);
+                }
+            }
+        }
     }
 
-    ul {
-        list-style-type: none;
-        padding: 0;
-    }
-
-    li {
-        display: inline-block;
-        margin: 0 10px;
-    }
-
-    a {
-        color: #42b983;
-    }
 </style>

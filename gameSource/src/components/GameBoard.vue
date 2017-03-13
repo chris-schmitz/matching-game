@@ -1,6 +1,6 @@
 <template>
     <div class='game-board-container'>
-        gameboard
+        <h1>gameboard</h1>
     </div>
 </template>
 

@@ -15,6 +15,7 @@
     #app {
         width: 100vw;
         margin: 20px;
+        border-radius: 5px;
         background-color: $white;
     }
 </style>

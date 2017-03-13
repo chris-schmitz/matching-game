@@ -1,5 +1,5 @@
 <template>
-    <div class="splash-container">
+    <div class="style-container">
         <h1>h1 The Matching Game</h1>
         <h2>h2 The Matching Game</h2>
         <h3>h3 The Matching Game</h3>
@@ -41,6 +41,10 @@
 <style lang="scss" scoped>
     @import '../style/colors';
     @import '../style/mixins';
+    
+    .style-container {
+    }
+
     div {
         padding: 20px;
     }
