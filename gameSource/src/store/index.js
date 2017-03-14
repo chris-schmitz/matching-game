@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import mutations from './mutations'
 
 Vue.use(Vuex)
 
+import home from './modules/home'
+
 const store = new Vuex.Store({
+    modules: {
+        home
+    },
     state: {
-        boardSize: {width: null, height: null},
         cards: [],
         cardsInPlay: [],
         currentSelection: [],
