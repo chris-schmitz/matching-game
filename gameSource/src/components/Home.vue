@@ -26,12 +26,12 @@
                         <td>Total Tiles:</td><td><span v-text="totalTiles"></span></td>
                     </tr>
                     </tr>
-                        <td>Valid board size:</td><td>{{ validBoardSize }}</td>
+                        <td>Even number of tiles:</td><td>{{ validBoardSize }}</td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <div class="start-button-container">
-                                <button @click='startGame'>Start!</button>
+                                <button @click='startGame' :disabled="!validBoardSize" :class="{'disabled': !validBoardSize}">Start!</button>
                             </div>
                         </td>
                     </tr>
@@ -151,5 +151,12 @@
         }
     }
 
+    .disabled {
+        color: gray;
+        background-color: lightgray;
+        border-color: gray;
+        opacity: .5;
+        cursor: not-allowed;
+    }
 
 </style>

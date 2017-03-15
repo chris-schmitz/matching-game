@@ -19,6 +19,8 @@ const getters = {
         return (state.boardSize.width * state.boardSize.height)
     },
     validBoardSize (state, getters) {
+        if (getters.totalTiles === 0) return false
+
         return getters.totalTiles % 2 === 0
     }
 }
