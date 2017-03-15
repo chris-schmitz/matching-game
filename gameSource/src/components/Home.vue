@@ -17,10 +17,10 @@
                             <p>Board with size</p>
                         </th>
                     <tr>
-                        <td>Width:</td><td><input v-model="boardSize.width" placeholder="10"></td>
+                        <td>Width:</td><td><input v-model="width" placeholder="10"></td>
                     </tr>
                     <tr>
-                        <td>Height:</td><td><input v-model="boardSize.height" placeholder="5"></td>
+                        <td>Height:</td><td><input v-model="height" placeholder="5"></td>
                     </tr>
                     <tr>
                         <td>Total Tiles:</td><td><span v-text="totalTiles"></span></td>
@@ -63,14 +63,30 @@
             return {}
         },
         computed: {
-            ...mapState({
-                boardSize: state => state.home.boardSize,
-                showKickoffButtons: state => state.home.showKickoffButtons,
-                showBoardSizeSelector: state => state.home.showBoardSizeSelector,
-                showSavedStates: state => state.home.showSavedStates,
-                savedStates: state => state.home.savedStates
+            height: {
+                get () {
+                    return this.$store.state.home.boardSize.height
+                },
+                set (height) {
+                    this.$store.commit('home/setBoardHeight', height)
+                }
+            },
+            width: {
+                get () {
+                    return this.$store.state.home.boardSize.width
+                },
+                set (width) {
+                    this.$store.commit('home/setBoardWidth', width)
+                }
+            },
+            ...mapState('home', {
+                boardSize: state => state.boardSize,
+                showKickoffButtons: state => state.showKickoffButtons,
+                showBoardSizeSelector: state => state.showBoardSizeSelector,
+                showSavedStates: state => state.showSavedStates,
+                savedStates: state => state.savedStates
             }),
-            ...mapGetters({
+            ...mapGetters('home', {
                 getMoreInformation: 'getMoreInformation',
                 totalTiles: 'totalTiles',
                 validBoardSize: 'validBoardSize'
@@ -85,7 +101,7 @@
                 // also go back and make the start button style disabled if the board isn't valid
                 this.$store.commit('startNewGame')
             },
-            ...mapMutations([
+            ...mapMutations('home', [
                 'getBoardSize',
                 'pickFromSavedGame',
                 'backToKickoff',

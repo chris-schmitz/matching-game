@@ -1,3 +1,5 @@
+import router from '../index'
+
 const state = {
     // should this be moved out to the root???
     boardSize: {width: null, height: null},
@@ -26,6 +28,12 @@ const getters = {
 }
 
 const mutations = {
+    setBoardWidth (state, width) {
+        state.boardSize.width = width
+    },
+    setBoardHeight (state, height) {
+        state.boardSize.height = height
+    },
     getBoardSize (state) {
         state.showKickoffButtons = false
         state.showBoardSizeSelector = true
@@ -41,9 +49,13 @@ const mutations = {
     },
     loadSavedState (state, savedStateId) {
         console.log(`loading saved state: ${savedStateId}`)
+        debugger
+        router.push('game-board')
     },
     startNewGame (state) {
         console.log('starting new game')
+        debugger
+        router.push('game-board')
     }
 }
 
