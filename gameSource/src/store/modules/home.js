@@ -23,9 +23,6 @@ const getters = {
     }
 }
 
-// I don't know that we need actions for this module yet
-// const actions = {}
-
 const mutations = {
     getBoardSize (state) {
         state.showKickoffButtons = false
@@ -42,6 +39,9 @@ const mutations = {
     },
     loadSavedState (state, savedStateId) {
         console.log(`loading saved state: ${savedStateId}`)
+    },
+    startNewGame (state) {
+        console.log('starting new game')
     }
 }
 

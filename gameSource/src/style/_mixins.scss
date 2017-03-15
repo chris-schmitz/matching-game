@@ -14,3 +14,25 @@
         lighten($backColor, 20%) 20px
     );
 }
+
+// don't really like how this looks, but set it aside for now
+@mixin button($foreground, $background, $fontSize, $radius, $width: initial){
+    color: $foreground;
+    background-color: $background;
+    border: 1px solid $background;
+    border-radius: $radius;
+    font-size: $fontSize;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+    width: $width;
+
+    &:hover {
+        background-color: $foreground;
+        color: $background;
+    }
+    &:active {
+        background-color: darken($background, 80%);
+        // color: $background;
+    }
+}
