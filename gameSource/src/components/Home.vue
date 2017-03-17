@@ -94,12 +94,12 @@
         },
         methods: {
             loadSavedState (savedState) {
-                this.$store.commit('loadSavedState', savedState)
+                this.$store.commit('home/loadSavedState', savedState)
             },
             startGame () {
                 // don't fire if the board isn't valid
                 // also go back and make the start button style disabled if the board isn't valid
-                this.$store.commit('startNewGame')
+                this.$store.commit('home/startNewGame')
             },
             ...mapMutations('home', [
                 'getBoardSize',

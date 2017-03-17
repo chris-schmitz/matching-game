@@ -4,18 +4,15 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import home from './modules/home'
+import gameboard from './modules/gameboard'
 
 const store = new Vuex.Store({
     modules: {
-        home
-    },
-    state: {
-        cards: [],
-        cardsInPlay: [],
-        currentSelection: [],
-        notification: {message: null, type: null},
-        lockGameBoard: false
-        // , savedGames: []
+        home: {
+            namespaced: true,
+            ...home
+        },
+        gameboard
     }
 })
 

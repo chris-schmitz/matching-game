@@ -1,4 +1,4 @@
-import router from '../index'
+import router from '../../router/index'
 
 const state = {
     // should this be moved out to the root???
@@ -47,14 +47,12 @@ const mutations = {
         state.showBoardSizeSelector = false
         state.showKickoffButtons = true
     },
-    loadSavedState (state, savedStateId) {
-        console.log(`loading saved state: ${savedStateId}`)
-        debugger
-        router.push('game-board')
-    },
     startNewGame (state) {
         console.log('starting new game')
-        debugger
+        router.push('game-board')
+    },
+    loadSavedState (state, savedStateId) {
+        console.log(`loading saved state: ${savedStateId}`)
         router.push('game-board')
     }
 }
