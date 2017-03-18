@@ -115,10 +115,6 @@
     @import '../style/colors';
     @import '../style/mixins';
 
-    button {
-        @include button($white, $green, 15pt, 5px);
-    }
-
     .kickoff-buttons {
         display: flex;
         flex-direction: column;

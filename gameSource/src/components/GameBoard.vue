@@ -7,13 +7,23 @@
             </div>
             <div class="side-bar">
                 <div class="match-status">
-                    match status
+                    <div>
+                        <span>Matches found:</span><span>{{ matchesFound }}</span>
+                    </div>
+                    <div>
+                        <span>Matches left:</span><span>{{ matchesLeft }}</span>
+                    </div>
                 </div>
                 <div class="current-match">
-                    current match
+                    <h3>Current Match</h3>
+                    <div>
+                        <div class="card"></div>
+                        <div class="card"></div>
+                    </div>
                 </div>
                 <div class="actions">
-                    actions
+                    <button @click="Restart">Restart</button>
+                    <button @click="saveAndQuit">Save & Quit</button>
                 </div>
             </div>
         </section>
@@ -23,7 +33,10 @@
 <script>
     export default {
         data () {
-            return {}
+            return {
+                matchesFound: 12, // moe these into vuex
+                matchesLeft: 15
+            }
         }
     }
 </script>
@@ -51,7 +64,6 @@
             align-items: stretch;
 
             > * {
-                padding: 10px;
             }
 
 
@@ -63,6 +75,7 @@
             }
 
             .side-bar {
+                // flex: 1;
                 flex: 0 0 170px;
                 background-color: lighten($hotpink, 20%);
                 display: flex;
@@ -73,14 +86,64 @@
                     flex: 1;
                 }
                 > div:nth-child(2) {
-                    flex: 3;
+                    flex: 5;
                 }
 
                 > * {
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    border: 1px solid $white;
+                }
+
+                > * + * {
+                    border-top: 1px solid $white;
+                }
+
+                .match-status {
+                    > div {
+                        margin: 5px;
+                    }
+                    > div > span:nth-child(2){
+                        font-weight: bold;
+                        margin-left: 5px;
+                        color: $white;
+                    }
+                }
+
+                .actions {
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    > button {
+                        @include button($white, $purple, 15px, 5px, 150px);
+                        // width: 150px;
+                    }
+                }
+
+                .current-match {
+
+                    > * {
+                        margin: 10px;
+                    }
+
+                    > h3 {
+                        color: $white;
+                        font-weight: bold;
+                    }
+
+                    > div {
+                        // background:blue;
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-around;
+
+                    }
+
+                    .card {
+                        @include card(120px, 100px, $purple);
+                    }
                 }
             }
         }

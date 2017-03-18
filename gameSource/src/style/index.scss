@@ -22,6 +22,11 @@ body{
     -moz-osx-font-smoothing: grayscale;
 }
 
+button {
+    @include button($white, $green, 15pt, 5px);
+}
+
+
 
 // I'm cribbing some of these rules from the mon project
 h1 {
