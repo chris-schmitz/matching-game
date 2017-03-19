@@ -12,7 +12,10 @@ const store = new Vuex.Store({
             namespaced: true,
             ...home
         },
-        gameboard
+        gameboard: {
+            namespaced: true,
+            ...gameboard
+        }
     }
 })
 

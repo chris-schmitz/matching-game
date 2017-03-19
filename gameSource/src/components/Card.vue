@@ -1,0 +1,37 @@
+<template>
+    <div class="card-container">
+        <div v-show="!card.faceUp" class="card back" @click="flip"></div>
+        <div v-show="card.faceUp" class="front" v-text="card.test"></div>
+    </div>
+</template>
+
+<script>
+    export default {
+        props: ['card'],
+        data () {
+            return {}
+        },
+        computed: {
+        },
+        methods: {
+            flip () {
+                this.$store.commit('gameboard/flip', this.card)
+            }
+        }
+    }
+</script>
+
+<style lang='scss' scoped>
+    @import '../style/colors';
+    @import '../style/mixins';
+
+    .card-container {
+    }
+
+    .card {
+        @include card(120px, 100px, $purple);
+    }
+    .front {
+        @include card(120px, 100px, $green);
+    }
+</style>

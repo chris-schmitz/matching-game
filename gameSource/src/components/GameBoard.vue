@@ -3,7 +3,7 @@
         <h1>Let's Match!</h1>
         <section>
             <div class="board">
-                board
+                <card v-for="card in cards" :card="card"></card>
             </div>
             <div class="side-bar">
                 <div class="match-status">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="actions">
-                    <button @click="Restart">Restart</button>
+                    <button @click="restart">Restart</button>
                     <button @click="saveAndQuit">Save & Quit</button>
                 </div>
             </div>
@@ -31,11 +31,28 @@
 </template>
 
 <script>
+    import {mapGetters} from 'vuex'
+    import Card from './Card.vue'
+
     export default {
+        components: {Card},
         data () {
             return {
                 matchesFound: 12, // moe these into vuex
                 matchesLeft: 15
+            }
+        },
+        computed: {
+            ...mapGetters('gameboard', {
+                cards: 'cardsInPlay'
+            })
+        },
+        methods: {
+            restart () {
+
+            },
+            saveAndQuit () {
+
             }
         }
     }
@@ -44,6 +61,16 @@
 <style lang='scss' scoped>
     @import '../style/colors';
     @import '../style/mixins';
+
+    .card {
+        @include card(120px, 100px, $purple);
+    }
+
+    .flip {
+        -webkit-animation: flip-2-hor-top-1 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        -moz-animation: flip-2-hor-top-1 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        animation: flip-2-hor-top-1 0.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    }
 
     .game-board-container{
         height: 100%;
@@ -69,9 +96,14 @@
 
             .board {
                 flex: 5;
+                flex-wrap: wrap;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
+                > * {
+                    margin: 10px;
+                }
             }
 
             .side-bar {
@@ -141,9 +173,6 @@
 
                     }
 
-                    .card {
-                        @include card(120px, 100px, $purple);
-                    }
                 }
             }
         }
