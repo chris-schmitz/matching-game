@@ -15,7 +15,7 @@
         },
         methods: {
             flip () {
-                this.$store.commit('gameboard/flip', this.card)
+                this.$store.dispatch('gameboard/flip', this.card)
             }
         }
     }

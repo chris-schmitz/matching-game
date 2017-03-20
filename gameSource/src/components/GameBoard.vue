@@ -3,7 +3,7 @@
         <h1>Let's Match!</h1>
         <section>
             <div class="board">
-                <card v-for="card in cards" :card="card"></card>
+                <card v-for="card in deck" :card="card"></card>
             </div>
             <div class="side-bar">
                 <div class="match-status">
@@ -44,7 +44,7 @@
         },
         computed: {
             ...mapGetters('gameboard', {
-                cards: 'cardsInPlay'
+                deck: 'deck'
             })
         },
         methods: {
@@ -53,6 +53,11 @@
             },
             saveAndQuit () {
 
+            }
+        },
+        created () {
+            if (this.deck.length === 0) {
+                this.$router.push('home')
             }
         }
     }
@@ -100,6 +105,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                overflow-x: scroll; // is this the best way to handle it?
 
                 > * {
                     margin: 10px;
