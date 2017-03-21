@@ -28,7 +28,7 @@
         top: 40px;
         background-color: $hotpink;
         padding:20px;
-        border-radius: 5px 5px 0 0;
+        border-radius: 5px;
         box-shadow: 5px 5px 10px rgba($purple, .3);
 
         display: flex;

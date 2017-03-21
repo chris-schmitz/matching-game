@@ -15,7 +15,7 @@ const actions = {
     flip ({commit, dispatch, state}, targetCard) {
         let cardToFlip = state.deck
                         .filter(card => card.id === targetCard.id)
-                        .reduce((carry, current) => carry.concat(current))
+                        .reduce((carry, current) => Object.assign(carry, current))
 
         if (typeof cardToFlip !== 'object' || Array.isArray(cardToFlip)) {
             dispatch('notification',
