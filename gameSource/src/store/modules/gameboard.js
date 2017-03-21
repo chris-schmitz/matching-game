@@ -1,3 +1,5 @@
+// import router from '../../router/index'
+
 const state = {
     currentSelection: [],
     notification: {message: null, type: null},

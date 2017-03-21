@@ -31,7 +31,7 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
     import Card from './Card.vue'
 
     export default {
@@ -51,9 +51,9 @@
             restart () {
 
             },
-            saveAndQuit () {
-
-            }
+            ...mapActions('home', [
+                'saveAndQuit'
+            ])
         },
         created () {
             if (this.deck.length === 0) {

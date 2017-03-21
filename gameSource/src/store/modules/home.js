@@ -75,19 +75,20 @@ function shuffle (array) {
     return array
 }
 
-function makeSureWeHaveEnoughCards (numberNeeded, uniqueCards) {
-    let additionalCards = []
-    const numberOfUniqueCardsNeeded = (numberNeeded / 2) - uniqueCards.length
+function makeSureWeHaveEnoughCards (desiredDeckSize, uniqueCards) {
+    let protoDeck = []
+    const numberOfCardsNeeded = (desiredDeckSize / 2)
 
-    if (numberOfUniqueCardsNeeded > 0) {
-        for (let i = 0, arrayAccessor = 0; i < numberOfUniqueCardsNeeded; i++) {
-            if (arrayAccessor === uniqueCards.length) arrayAccessor = 0
-            additionalCards.push(uniqueCards[arrayAccessor])
-            arrayAccessor += 1
-        }
+    // I love functional pipelines (love'm!), but man does this iteration
+    // and accessor loop look better as a for loop (man!)!!
+    for (let i = 0, arrayAccessor = 0; i < numberOfCardsNeeded; i++) {
+        if (arrayAccessor === uniqueCards.length) arrayAccessor = 0
+
+        protoDeck.push(uniqueCards[arrayAccessor])
+        arrayAccessor += 1
     }
 
-    return additionalCards.concat(uniqueCards)
+    return protoDeck
 }
 
 const actions = {
@@ -107,6 +108,15 @@ const actions = {
 
         router.push('game-board')
         commit('gameboard/startNewGame', shuffle(deck), {root: true})
+    },
+
+    saveAndQuit (context, savedState) {
+        // note, do these mutations syncronously before pushing home
+        // instead of using the on complete callback for router.push.
+        // that we we won't end up with a screen flash
+        console.log('store saved state')
+        console.log('reset home state')
+        router.push('home')
     }
 }
 
