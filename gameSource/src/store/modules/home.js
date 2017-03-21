@@ -75,9 +75,26 @@ function shuffle (array) {
     return array
 }
 
+function makeSureWeHaveEnoughCards (numberNeeded, uniqueCards) {
+    let additionalCards = []
+    const numberOfUniqueCardsNeeded = (numberNeeded / 2) - uniqueCards.length
+
+    if (numberOfUniqueCardsNeeded > 0) {
+        for (let i = 0, arrayAccessor = 0; i < numberOfUniqueCardsNeeded; i++) {
+            if (arrayAccessor === uniqueCards.length) arrayAccessor = 0
+            additionalCards.push(uniqueCards[arrayAccessor])
+            arrayAccessor += 1
+        }
+    }
+
+    return additionalCards.concat(uniqueCards)
+}
+
 const actions = {
     startNewGame ({commit, getters, state, rootGetters, rootState}) {
-        let deck = rootState.cards
+        let protoDeck = makeSureWeHaveEnoughCards(getters.totalTiles, rootState.cards)
+
+        let deck = protoDeck
             .map(card => {
                 const dup = Object.assign({}, card)
                 return [card, dup]
@@ -87,6 +104,7 @@ const actions = {
                 card.id = index
                 return card
             })
+
         router.push('game-board')
         commit('gameboard/startNewGame', shuffle(deck), {root: true})
     }
