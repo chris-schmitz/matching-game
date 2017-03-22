@@ -97,8 +97,19 @@ const actions = {
 
         let deck = protoDeck
             .map(card => {
-                const dup = Object.assign({}, card)
-                return [card, dup]
+                // So I'm not totally sure why, but we need to create two wholy new
+                // card instances from the original card. If don't we won't be able
+                // to assign (reassign) the id's further down the pipe for the original
+                // `card` instance. It has something to do with how vue assigns and handles
+                // internal ids. Really, when we pull the original card objects from the root
+                // instance the card instances already have ids assigned even though we didn't
+                // add them in. I'll search more through the docs and API to better understand
+                // exactly what's going on, but for now the only way that I know that we can
+                // "unhook" the cards is by creating fresh duplicates of them that have not
+                // yet been added into vue.
+                const duplicate1 = Object.assign({}, card)
+                const duplicate2 = Object.assign({}, card)
+                return [duplicate1, duplicate2]
             })
             .reduce((carry, current) => carry.concat(current))
             .map((card, index) => {

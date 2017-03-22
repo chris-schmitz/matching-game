@@ -1,7 +1,12 @@
 <template>
     <div class="card-container">
+        <!--{{card.id}}-->
         <div v-show="!card.faceUp" class="card back" @click="flip"></div>
-        <div v-show="card.faceUp" class="front" v-text="card.test"></div>
+        <div
+            v-show="card.faceUp"
+            class="front"
+            :style="cardBackground"
+        ></div>
     </div>
 </template>
 
@@ -12,6 +17,9 @@
             return {}
         },
         computed: {
+            cardBackground () {
+                return {'background-image': `url("${this.card.face}")`}
+            }
         },
         methods: {
             flip () {
@@ -32,6 +40,6 @@
         @include card(120px, 100px, $purple);
     }
     .front {
-        @include card(120px, 100px, $green);
+        @include card(120px, 100px, $green, true);
     }
 </style>

@@ -1,4 +1,4 @@
-@mixin card($height, $width, $backColor) {
+@mixin card($height, $width, $backColor, $solidFace: false) {
     height: $height;
     width: $width;
     background-color: $backColor;
@@ -6,13 +6,15 @@
     border: 2px solid darken($backColor, 20%);
 
     // lifted from css tricks and altered to fit mixin: https://css-tricks.com/stripes-css/
-    background: repeating-linear-gradient(
-        45deg,
-        $backColor,
-        $backColor 10px,
-        lighten($backColor, 20%) 10px,
-        lighten($backColor, 20%) 20px
-    );
+    @if $solidFace == false {
+        background: repeating-linear-gradient(
+            45deg,
+            $backColor,
+            $backColor 10px,
+            lighten($backColor, 20%) 10px,
+            lighten($backColor, 20%) 20px
+        );
+    }
 }
 
 // don't really like how this looks, but set it aside for now
