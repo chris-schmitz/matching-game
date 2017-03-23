@@ -8,10 +8,13 @@
             <div class="side-bar">
                 <div class="match-status">
                     <div>
-                        <span>Matches found:</span><span>{{ matchesFound }}</span>
+                        <span>Cards matched:</span><span>{{ matchCount }}</span>
                     </div>
                     <div>
-                        <span>Matches left:</span><span>{{ matchesLeft }}</span>
+                        <span>Cards left:</span><span>{{ matchesLeft }}</span>
+                    </div>
+                    <div>
+                        <span>Face up count:</span><span>{{ faceUpCount }}</span>
                     </div>
                 </div>
                 <div class="current-match">
@@ -38,13 +41,14 @@
         components: {Card},
         data () {
             return {
-                matchesFound: 12, // moe these into vuex
-                matchesLeft: 15
             }
         },
         computed: {
             ...mapGetters('gameboard', {
-                deck: 'deck'
+                deck: 'deck',
+                matchCount: 'matchCount',
+                matchesLeft: 'matchesLeftToFind',
+                faceUpCount: 'faceUpCount'
             })
         },
         methods: {
@@ -120,7 +124,7 @@
                 flex-direction: column;
                 justify-content: space-between;
 
-                > div:nth-child(1), div:nth-child(3) {
+                > div:nth-child(1), > div:nth-child(3) {
                     flex: 1;
                 }
                 > div:nth-child(2) {
@@ -138,8 +142,9 @@
                 }
 
                 .match-status {
+                    display: flex;
+                    justify-content: space-around;
                     > div {
-                        margin: 5px;
                     }
                     > div > span:nth-child(2){
                         font-weight: bold;

@@ -34,8 +34,17 @@ const mutations = {
 }
 
 const actions = {
-    notification (context, notification) {
-        debugger
+    // it seems a bit silly to have actions for these that just hand off to the mutations,
+    // but I'm doing this intensionally now so that if I add in extra logic (e.g. auto
+    // dismissing notifications) I can add them here without changing code all over the place.
+    // I also named the actions the same as the mutations so that if we _do_ decide it's better
+    // to just use the mutations directly we can just swap out `dispatch` for `commit` wherever
+    // we're calling to notifications.
+    setNotification ({commit}, notification) {
+        commit('setNotification', notification)
+    },
+    clearNotification ({commit}) {
+        commit('clearNotification')
     }
 }
 
