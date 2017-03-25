@@ -20,8 +20,14 @@
                 <div class="current-match">
                     <h3>Current Match</h3>
                     <div>
-                        <div class="card"></div>
-                        <div class="card"></div>
+                        <div>
+                            <card v-if="typeof currentSelection[0] !== 'undefined'" :card="currentSelection[0]"></card>
+                            <div v-else class="card"></div>
+                        </div>
+                        <div>
+                            <card v-if="typeof currentSelection[1] !== 'undefined'" :card="currentSelection[1]"></card>
+                            <div v-else class="card"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="actions">
@@ -34,7 +40,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapGetters, mapActions, mapState} from 'vuex'
     import Card from './Card.vue'
 
     export default {
@@ -44,6 +50,9 @@
             }
         },
         computed: {
+            ...mapState('gameboard', {
+                currentSelection: state => state.currentSelection
+            }),
             ...mapGetters('gameboard', {
                 deck: 'deck',
                 matchCount: 'matchCount',

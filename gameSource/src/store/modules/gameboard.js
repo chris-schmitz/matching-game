@@ -82,7 +82,10 @@ const actions = {
                     const message = 'Match found :D'
                     const type = 'success'
                     const selfDismissing = true
-                    context.dispatch('notification/triggerNotification', {callback: () => {}, message, type, selfDismissing}, {root: true})
+                    const callback = () => {
+                        context.commit('clearSelectionStack')
+                    }
+                    context.dispatch('notification/triggerNotification', {callback, message, type, selfDismissing}, {root: true})
                 } else {
                     const message = 'You won!!'
                     const type = 'success'
@@ -101,9 +104,7 @@ const actions = {
 
     handleMatchSelection (context) {
         return new Promise((resolve, reject) => {
-            context.commit('lockGameBoard', true)
             context.state.currentSelection.forEach(card => context.commit('markAsMatchFound', card))
-            context.commit('clearSelectionStack')
             resolve()
         })
     }

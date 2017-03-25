@@ -22,7 +22,7 @@ const mutations = {
 }
 
 const actions = {
-    triggerNotification ({state, commit, dispatch}, payload, duration = 2000) {
+    triggerNotification ({state, commit, dispatch}, payload, duration = 1500) {
         let timeoutId = null
 
         if (payload.hasOwnProperty('selfDismissing')) {
