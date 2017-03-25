@@ -17,10 +17,10 @@
                             <p>Board with size</p>
                         </th>
                     <tr>
-                        <td>Width:</td><td><input v-model="width" placeholder="10"></td>
+                        <td>Width:</td><td><input v-model="width" placeholder="10" @keypress="numsOnlyPlz"></td>
                     </tr>
                     <tr>
-                        <td>Height:</td><td><input v-model="height" placeholder="5"></td>
+                        <td>Height:</td><td><input v-model="height" placeholder="5" @keypress="numsOnlyPlz" @keyup.enter="startGame"></td>
                     </tr>
                     <tr>
                         <td>Total Tiles:</td><td><span v-text="totalTiles"></span></td>
@@ -93,14 +93,19 @@
             })
         },
         methods: {
+            numsOnlyPlz (event) {
+                if ('key' in event && event.key.match(/[0-9]+/) !== null) {
+                    return
+                }
+                event.preventDefault()
+            },
             loadSavedState (savedState) {
                 this.$store.commit('home/loadSavedState', savedState)
             },
             startGame () {
-                // don't fire if the board isn't valid
-                // also go back and make the start button style disabled if the board isn't valid
-                // this.$store.commit('gameboard/start')
-                this.$store.dispatch('home/startNewGame')
+                if (this.validBoardSize) {
+                    this.$store.dispatch('home/startNewGame')
+                }
             },
             ...mapMutations('home', [
                 'getBoardSize',

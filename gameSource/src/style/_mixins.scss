@@ -38,3 +38,21 @@
         // color: $background;
     }
 }
+
+@mixin notificationBarColor ($backgroundColor, $textColor: $white, $buttonColor: null) {
+    background-color: $backgroundColor;
+    color: $textColor;
+
+    button {
+        color: $textColor;
+        border: 0;
+        padding: 10px;
+        @if ($buttonColor != null) {
+            background-color: $buttonColor;
+        } @else {
+            background-color: darken($backgroundColor, 20%);
+        }
+    }
+
+
+}

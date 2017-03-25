@@ -1,19 +1,42 @@
 <template>
-    <div class='notification-container'>
-        <slot></slot>
+    <div class='notification-container' :class="typeStyle">
+        <h2 v-text="message"></h2>
+        <slot name="closeButton"></slot>
     </div>
 </template>
 
 <script>
+    import {mapState} from 'vuex'
+
     export default {
         data () {
             return {}
+        },
+        computed: {
+            ...mapState('notification', {
+                message: 'message',
+                type: 'type'
+            }),
+            typeStyle () {
+                return {
+                    'success': this.type === 'success',
+                    'info': this.type === 'info',
+                    'warning': this.type === 'warning',
+                    'error': this.type === 'error'
+                }
+            }
         }
+        // methods: {
+        //     clearNotification () {
+        //         this.$store.dispatch('notification/clearNotification')
+        //     }
+        // }
     }
 </script>
 
 <style lang='scss' scoped>
-    @import '../style/_colors';
+    @import '../style/colors';
+    @import '../style/mixins';
 
     .notification-container{
         // This works, but it feels wrong, we're not basing our sizing on
@@ -33,5 +56,20 @@
 
         display: flex;
         justify-content: space-between;
+        align-items: center;
+
+        &.success {
+            @include notificationBarColor ($lightGreen, $purple);
+            // background-color: $lightGreen;
+        }
+        &.info {
+            @include notificationBarColor ($blue, $purple);
+        }
+        &.warning {
+            @include notificationBarColor ($yellow, $purple);
+        }
+        &.error {
+            @include notificationBarColor ($lightRed);
+        }
     }
 </style>

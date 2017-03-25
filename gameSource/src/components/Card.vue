@@ -1,6 +1,5 @@
 <template>
     <div class="card-container">
-        <!--{{card.id}}-->
         <div v-show="!card.faceUp" class="card back" @click="flip"></div>
         <div
             v-show="card.faceUp"
@@ -28,9 +27,9 @@
         },
         methods: {
             flip () {
-                if (!this.lockGameBoard) {
-                    this.$store.dispatch('gameboard/flip', this.card)
-                }
+                this.$store.commit('notification/clearNotificationTimeout')
+                this.$store.commit('notification/setData', {message: null, type: null, timeoutId: null})
+                this.$store.dispatch('gameboard/flip', this.card)
             }
         }
     }
@@ -40,8 +39,7 @@
     @import '../style/colors';
     @import '../style/mixins';
 
-    .card-container {
-    }
+    .card-container {}
 
     .card {
         @include card(120px, 100px, $purple);
