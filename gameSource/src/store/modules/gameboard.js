@@ -5,21 +5,18 @@ const state = {
     deck: []
 }
 
-const helpers = {
-    cardsMatch (state) {
-        if (state.currentSelection[0].faceId !== state.currentSelection[1].faceId) {
-            return false
-        }
-        return true
-    }
-}
-
 const getters = {
     deck (state) {
         return state.deck
     },
     gameIsActive (state) {
         return state.deck.length > 0
+    },
+    cardsMatch (state) {
+        if (state.currentSelection.length === 2 && (state.currentSelection[0].faceId === state.currentSelection[1].faceId)) {
+            return true
+        }
+        return false
     },
     matchCount (state) {
         return state.deck
@@ -62,7 +59,7 @@ const actions = {
             return
         }
 
-        if (!helpers.cardsMatch(context.state)) {
+        if (!context.getters.cardsMatch) {
             const message = 'These cards do not match :/'
             const type = 'info'
             const selfDismissing = true

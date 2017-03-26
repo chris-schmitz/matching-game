@@ -16,7 +16,7 @@
         components: {Notification},
         computed: {
             ...mapGetters('notification', ['showNotification']),
-            ...mapGetters('gameboard', ['gameIsActive'])
+            ...mapGetters('gameboard', ['gameIsActive', 'cardsMatch'])
         },
         methods: {
             // while I'm not _entirely_ wild about putting a method in this component that has
@@ -25,7 +25,7 @@
             // - This is all still being pulled and pushed through the root store
             // - I'd rather put this logic here than directly in the notification component itself
             clearNotification () {
-                if (this.gameIsActive) {
+                if (this.gameIsActive && !this.cardsMatch) {
                     this.$store
                         .dispatch('gameboard/clearSelectionStack')
                         .then(() => {
