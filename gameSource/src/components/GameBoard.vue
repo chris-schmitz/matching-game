@@ -36,20 +36,41 @@
                 </div>
             </div>
         </section>
+
+        <modal v-show="showModal" class="modal">
+            <div slot="message">
+                {{ modal.message }}
+            </div>
+            <input slot="captureInput">
+            <button @click="cancel" slot="cancel">Cancel</button>
+            <button @click="confirm" slot="confirm">Confirm</button>
+        </modal>
+
     </div>
 </template>
 
 <script>
     import {mapGetters, mapActions, mapState} from 'vuex'
     import Card from './Card.vue'
+    import Modal from './ModalWindow'
 
     export default {
-        components: {Card},
+        components: {Card, Modal},
         data () {
             return {
+                modal: {
+                    message: 'Please give a label to your saved state.',
+                    buttons: [
+                        {text: 'Confirm', type: 'confirmation'},
+                        {text: 'Cancel', type: 'cancelation'}
+                    ]
+                }
             }
         },
         computed: {
+            showModal () {
+                return this.modal.message.length > 0
+            },
             ...mapState('gameboard', {
                 currentSelection: state => state.currentSelection
             }),
@@ -122,7 +143,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                overflow-x: scroll; // is this the best way to handle it?
+                overflow-x: auto; // is this the best way to handle it?
 
                 > * {
                     margin: 10px;
