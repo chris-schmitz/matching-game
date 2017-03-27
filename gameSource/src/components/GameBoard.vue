@@ -39,9 +39,9 @@
 
         <modal v-show="showModal" class="modal">
             <div slot="message">
-                {{ modal.message }}
+                {{ message }}
             </div>
-            <input slot="captureInput">
+            <input slot="captureInput" v-model="captureInput">
             <button @click="cancel" slot="cancel">Cancel</button>
             <button @click="confirm" slot="confirm">Confirm</button>
         </modal>
@@ -50,27 +50,31 @@
 </template>
 
 <script>
-    import {mapGetters, mapActions, mapState} from 'vuex'
+    import {mapGetters, mapState} from 'vuex'
     import Card from './Card.vue'
     import Modal from './ModalWindow'
 
     export default {
         components: {Card, Modal},
         data () {
-            return {
-                modal: {
-                    message: 'Please give a label to your saved state.',
-                    buttons: [
-                        {text: 'Confirm', type: 'confirmation'},
-                        {text: 'Cancel', type: 'cancelation'}
-                    ]
-                }
-            }
+            return {}
         },
         computed: {
-            showModal () {
-                return this.modal.message.length > 0
+            ...mapState('modal', {
+                message: state => state.message
+            }),
+            ...mapGetters('modal', {
+                showModal: 'showModal'
+            }),
+            captureInput: {
+                get () {
+                    return this.$store.state.captureInput
+                },
+                set (input) {
+                    this.$store.commit('modal/setInput', input)
+                }
             },
+
             ...mapState('gameboard', {
                 currentSelection: state => state.currentSelection
             }),
@@ -85,13 +89,18 @@
             restart () {
                 this.$store.dispatch('home/startNewGame', null, {root: true})
             },
-            save () {
+            saveAndQuit () {
+                this.$store.commit('modal/showModal', {message: 'test'})
                 // show a window to get the name of the save state
                 // hand off name to save and quit
             },
-            ...mapActions('home', [
-                'saveAndQuit'
-            ])
+            confirm () {
+                // store the state or hand it off?
+                this.$store.commit('modal/hideModal')
+            },
+            cancel () {
+                this.$store.commit('modal/hideModal')
+            }
         },
         created () {
             if (this.deck.length === 0) {

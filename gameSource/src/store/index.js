@@ -6,6 +6,7 @@ Vue.use(Vuex)
 import home from './modules/home'
 import gameboard from './modules/gameboard'
 import notification from './modules/notification'
+import modal from './modules/modal'
 import settings from './modules/settings'
 // import router from '../router/index.js'
 
@@ -40,6 +41,10 @@ const store = new Vuex.Store({
         notification: {
             namespaced: true,
             ...notification
+        },
+        modal: {
+            namespaced: true,
+            ...modal
         },
         settings: {
             // namespaced: true,
