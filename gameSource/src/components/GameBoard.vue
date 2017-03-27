@@ -62,7 +62,11 @@
         },
         methods: {
             restart () {
-
+                this.$store.dispatch('home/startNewGame', null, {root: true})
+            },
+            save () {
+                // show a window to get the name of the save state
+                // hand off name to save and quit
             },
             ...mapActions('home', [
                 'saveAndQuit'

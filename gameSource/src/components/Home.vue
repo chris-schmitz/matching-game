@@ -52,6 +52,9 @@
             </div>
             <button @click='backToKickoff'>Back</button>
         </div>
+        <div class="settings">
+            <span class="fa fa-gear"></span>
+        </div>
     </div>
 </template>
 
@@ -175,6 +178,13 @@
         border-color: gray;
         opacity: .5;
         cursor: not-allowed;
+    }
+
+    .settings {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        font-size: 30px;
     }
 
 </style>
