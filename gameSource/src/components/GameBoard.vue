@@ -95,8 +95,15 @@
                 // hand off name to save and quit
             },
             confirm () {
-                // store the state or hand it off?
-                this.$store.commit('modal/hideModal')
+                // I shouldn't have to do this since I'm using arrow functions :|
+                // come back and figure out why this isn't being used as the promise
+                // `then` scope
+                let vm = this
+                this.$store
+                    .dispatch('modal/captureInputAndHideModal')
+                    .then((label) => vm.$store.dispatch('home/storeGameState', {label}, {root: true}))
+                    .then(() => vm.$store.dispatch('home/reset'))
+                    .then(() => vm.$router.push('home'))
             },
             cancel () {
                 this.$store.commit('modal/hideModal')

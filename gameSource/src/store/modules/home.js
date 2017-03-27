@@ -1,7 +1,6 @@
 import router from '../../router/index'
 
 const state = {
-    // should this be moved out to the root???
     boardSize: {width: null, height: null},
     showKickoffButtons: true,
     showBoardSizeSelector: false,
@@ -128,6 +127,33 @@ const actions = {
         console.log('store saved state')
         console.log('reset home state')
         router.push('home')
+    },
+
+    storeGameState ({commit}, label) {
+        return new Promise((resolve, reject) => {
+            // grab game state snapshot
+            // store it with some from like:
+            // {label, state}
+            resolve()
+        })
+    },
+
+    // I don't think I should have to manually reset each part like this.
+    // I should be able to do a reset mutation that taks an initial state
+    // object, e.g.
+    //      const initialState = Object.assign({}, state)
+    // and then sets the state for this module to that new object.
+    // I tried to do this, but for some
+    // reason no matter what combination of object cloning I try
+    // the two objects get updated together. It would make sense
+    // if we were just referencing the original state in a new var
+    // name, but you'd think cloning would "unhook" the two. :/ There
+    // has to be an answer for this, but it's an inveistgation to do
+    // sometime other than lunch.
+    reset ({commit}) {
+        commit('setBoardHeight', null)
+        commit('setBoardWidth', null)
+        commit('backToKickoff')
     }
 }
 

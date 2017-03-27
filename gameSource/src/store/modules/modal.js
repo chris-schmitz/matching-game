@@ -22,5 +22,15 @@ const mutations = {
     }
 }
 
-export default {state, getters, mutations}
+const actions = {
+    captureInputAndHideModal ({state, commit}) {
+        return new Promise((resolve, reject) => {
+            let data = state.captureInput
+            commit('hideModal')
+            resolve(data)
+        })
+    }
+}
+
+export default {state, getters, mutations, actions}
 
