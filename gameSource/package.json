@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
-    "build": "node build/build.js",
+    "build:web": "BUILD_DESTINATION=web node build/build.js",
+    "build:electron": "BUILD_DESTINATION=electron node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {

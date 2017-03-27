@@ -1,11 +1,19 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
 
+function setDestination(){
+  if (process.env.BUILD_DESTINATION === 'web') {
+    return path.resolve(__dirname, '../dist')
+  } else if (process.env.BUILD_DESTINATION === 'electron') {
+    return path.resolve(__dirname, '../../electron-version/app')
+  }
+}
+
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../../electron-version/app/index.html'),
-    assetsRoot: path.resolve(__dirname, '../../electron-version/app'),
+    index: setDestination() + 'index.html',
+    assetsRoot: setDestination(),
     // index: path.resolve(__dirname, '../dist/index.html'),
     // assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
