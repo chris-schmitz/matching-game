@@ -1,16 +1,18 @@
 import router from '../../router/index'
+import storage from '../helpers/BrowserStorage'
+// import _ from 'lodash'
 
-const state = {
-    boardSize: {width: null, height: null},
-    showKickoffButtons: true,
-    showBoardSizeSelector: false,
-    showSavedStates: false,
-    savedStates: [
-        {id: 1, label: 'almost got it'},
-        {id: 2, label: 'my 50 by 50 board'},
-        {id: 3, label: 'the one with goofey pics'}
-    ]
+function initialState () {
+    return {
+        boardSize: {width: null, height: null},
+        showKickoffButtons: true,
+        showBoardSizeSelector: false,
+        showSavedStates: false,
+        savedStates: []
+    }
 }
+
+const state = initialState()
 
 const getters = {
     getMoreInformation (state) {
@@ -46,9 +48,11 @@ const mutations = {
         state.showBoardSizeSelector = false
         state.showKickoffButtons = true
     },
-    loadSavedState (state, savedStateId) {
-        console.log(`loading saved state: ${savedStateId}`)
-        router.push('game-board')
+    loadState (state, newState) {
+        Object.assign(state, newState)
+    },
+    setSavedStates (state, savedStates) {
+        state.savedStates = savedStates
     }
 }
 
@@ -120,40 +124,41 @@ const actions = {
         commit('gameboard/startNewGame', shuffle(deck), {root: true})
     },
 
-    saveAndQuit (context, savedState) {
-        // note, do these mutations syncronously before pushing home
-        // instead of using the on complete callback for router.push.
-        // that we we won't end up with a screen flash
-        console.log('store saved state')
-        console.log('reset home state')
-        router.push('home')
+    // saveAndQuit (context, savedState) {
+    //     // note, do these mutations syncronously before pushing home
+    //     // instead of using the on complete callback for router.push.
+    //     // that we we won't end up with a screen flash
+    //     console.log('store saved state')
+    //     console.log('reset home state')
+    //     router.push('home')
+    // },
+
+    loadSavedStates ({commit}) {
+        return new Promise((resolve, reject) => {
+            const savedStates = storage.getSavedStates()
+            let savedStatesArray = Object.keys(savedStates)
+                    .map(stateKey => {
+                        return { label: stateKey, state: savedStates[stateKey] }
+                    })
+                    .map(stateObject => {
+                        stateObject.state = JSON.parse(stateObject.state)
+                        return stateObject
+                    })
+
+            commit('setSavedStates', savedStatesArray)
+        })
     },
 
-    storeGameState ({commit}, label) {
+    storeGameState ({commit, state}, payload) {
         return new Promise((resolve, reject) => {
-            // grab game state snapshot
-            // store it with some from like:
-            // {label, state}
+            const stringifiedState = JSON.stringify(state)
+            storage.storeaSavedState({label: payload.label, state: stringifiedState})
             resolve()
         })
     },
 
-    // I don't think I should have to manually reset each part like this.
-    // I should be able to do a reset mutation that taks an initial state
-    // object, e.g.
-    //      const initialState = Object.assign({}, state)
-    // and then sets the state for this module to that new object.
-    // I tried to do this, but for some
-    // reason no matter what combination of object cloning I try
-    // the two objects get updated together. It would make sense
-    // if we were just referencing the original state in a new var
-    // name, but you'd think cloning would "unhook" the two. :/ There
-    // has to be an answer for this, but it's an inveistgation to do
-    // sometime other than lunch.
     reset ({commit}) {
-        commit('setBoardHeight', null)
-        commit('setBoardWidth', null)
-        commit('backToKickoff')
+        commit('loadState', initialState())
     }
 }
 

@@ -116,6 +116,9 @@
                 'backToKickoff',
                 'loadSavedState'
             ])
+        },
+        created () {
+            this.$store.dispatch('home/loadSavedStates')
         }
     }
 </script>

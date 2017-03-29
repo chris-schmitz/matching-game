@@ -10,17 +10,12 @@
 </template>
 
 <script>
-    import {mapState} from 'vuex'
-
     export default {
         props: ['card'],
         data () {
             return {}
         },
         computed: {
-            ...mapState('gameboard', {
-                lockGameBoard: 'lockGameBoard'
-            }),
             cardBackground () {
                 return {'background-image': `url("${this.card.face}")`}
             }

@@ -90,7 +90,7 @@
                 this.$store.dispatch('home/startNewGame', null, {root: true})
             },
             saveAndQuit () {
-                this.$store.commit('modal/showModal', {message: 'test'})
+                this.$store.commit('modal/showModal', {message: 'Name your saved state!'})
                 // show a window to get the name of the save state
                 // hand off name to save and quit
             },

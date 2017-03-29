@@ -1,7 +1,6 @@
 const state = {
     currentSelection: [],
     notification: {message: null, type: null},
-    lockGameBoard: false,
     deck: []
 }
 
@@ -123,9 +122,6 @@ const mutations = {
     },
     clearSelectionStack (state) {
         state.currentSelection = []
-    },
-    lockGameBoard (state, bool) {
-        state.lockGameBoard = bool
     }
 }
 
