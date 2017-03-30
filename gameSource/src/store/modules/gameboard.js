@@ -1,3 +1,5 @@
+import router from '../../router/index'
+
 const state = {
     currentSelection: [],
     deck: []
@@ -115,6 +117,28 @@ const actions = {
             commit('loadAState', savedState)
             resolve()
         })
+    },
+
+    restart ({dispatch}, totalCards) {
+        debugger
+        dispatch('notification/clearNotification', null, {root: true})
+        .then(() => {
+            dispatch('gameboard/clearSelectionStack', null, {root: true})
+        })
+        .then(() => {
+            dispatch('home/startNewGame', totalCards, {root: true})
+        })
+    },
+    saveAndQuit ({state, dispatch}) {
+        dispatch('modal/captureInputAndHideModal', null, {root: true})
+            .then((label) => dispatch('home/storeGameState', {label, state: state}, {root: true}))
+            .then(() => dispatch('home/reset', null, {root: true}))
+            .then(() => router.push('home'))
+    },
+    quitWithoutSaving ({dispatch}) {
+        dispatch('modal/closeModal', null, {root: true})
+            .then(() => dispatch('home/reset', null, {root: true}))
+            .then(() => router.push('home'))
     }
 
 }

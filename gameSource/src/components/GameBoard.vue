@@ -32,7 +32,7 @@
                 </div>
                 <div class="actions">
                     <button @click="restart">Restart</button>
-                    <button @click="saveAndQuit">Save & Quit</button>
+                    <button @click="saveAndQuitDialog">Save & Quit</button>
                 </div>
             </div>
         </section>
@@ -49,7 +49,7 @@
                 <div>
                     <button @click="quitWithoutSaving">Quit</button>
                     <span>or</span>
-                    <button @click="confirm">Save & Quit</button>
+                    <button @click="saveAndQuit">Save & Quit</button>
                 </div>
             </div>
         </modal>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-    import {mapGetters, mapState} from 'vuex'
+    import {mapGetters, mapState, mapActions} from 'vuex'
     import Card from './Card.vue'
     import Modal from './ModalWindow'
 
@@ -95,36 +95,13 @@
             })
         },
         methods: {
+            ...mapActions('gameboard', ['saveAndQuit', 'quitWithoutSaving']),
             restart () {
                 let totalCards = this.deck.length
-                this.$store
-                    .dispatch('notification/clearNotification', null, {root: true})
-                    .then(() => {
-                        this.$store.dispatch('gameboard/clearSelectionStack', null, {root: true})
-                    })
-                    .then(() => {
-                        this.$store.dispatch('home/startNewGame', {totalCards}, {root: true})
-                    })
+                this.$store.dispatch('gameboard/restart', {totalCards})
             },
-            saveAndQuit () {
+            saveAndQuitDialog () {
                 this.$store.commit('modal/showModal', {message: 'Name your saved state!'})
-            },
-            confirm () {
-                // I shouldn't have to do this since I'm using arrow functions :|
-                // come back and figure out why this isn't being used as the promise
-                // `then` scope
-                let vm = this
-                this.$store
-                    .dispatch('modal/captureInputAndHideModal')
-                    .then((label) => vm.$store.dispatch('home/storeGameState', {label, state: vm.state}, {root: true}))
-                    .then(() => vm.$store.dispatch('home/reset'))
-                    .then(() => vm.$router.push('home'))
-            },
-            quitWithoutSaving () {
-                this.$store
-                    .dispatch('modal/closeModal')
-                    .then(() => this.$store.dispatch('home/reset'))
-                    .then(() => this.$router.push('home'))
             },
             cancel () {
                 this.$store.dispatch('modal/closeModal')
