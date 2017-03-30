@@ -107,7 +107,7 @@
             },
             startGame () {
                 if (this.validBoardSize) {
-                    this.$store.dispatch('home/startNewGame')
+                    this.$store.dispatch('home/startNewGame', {totalCards: this.totalTiles})
                 }
             },
             ...mapMutations('home', [

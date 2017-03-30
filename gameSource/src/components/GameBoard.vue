@@ -96,7 +96,8 @@
         },
         methods: {
             restart () {
-                this.$store.dispatch('home/startNewGame', null, {root: true})
+                let totalCards = this.deck.length
+                this.$store.dispatch('home/startNewGame', {totalCards}, {root: true})
             },
             saveAndQuit () {
                 this.$store.commit('modal/showModal', {message: 'Name your saved state!'})

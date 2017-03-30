@@ -95,8 +95,11 @@ function makeSureWeHaveEnoughCards (desiredDeckSize, uniqueCards) {
 }
 
 const actions = {
-    startNewGame ({commit, getters, state, rootGetters, rootState}) {
-        let protoDeck = makeSureWeHaveEnoughCards(getters.totalTiles, rootState.cards)
+    startNewGame ({commit, getters, state, rootGetters, rootState}, payload = {totalCards: null}) {
+        // we're passing in a payload with a total number of cards to render instead of pulling it
+        // from the state via the totalTiles getter so that we can reuse this action for the restart
+        // button on the game board (and not try to reset the whole home state just to restart a game)
+        let protoDeck = makeSureWeHaveEnoughCards(payload.totalCards, rootState.cards)
 
         let deck = protoDeck
             .map(card => {
