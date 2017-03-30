@@ -124,34 +124,31 @@ const actions = {
         commit('gameboard/startNewGame', shuffle(deck), {root: true})
     },
 
-    // saveAndQuit (context, savedState) {
-    //     // note, do these mutations syncronously before pushing home
-    //     // instead of using the on complete callback for router.push.
-    //     // that we we won't end up with a screen flash
-    //     console.log('store saved state')
-    //     console.log('reset home state')
-    //     router.push('home')
-    // },
+    loadASavedGame ({dispatch}, label) {
+        // pull the state from local storage by the key
+        let state = storage.getaSavedState(label)
+
+        // ba;lksajfl;adkjfaslkj why am I having to do this when I'm using
+        // an arrow function!!!!!!!
+        let routerr = router
+        dispatch('gameboard/loadSavedState', state, {root: true})
+            .then(() => {
+                routerr.push('/game-board')
+            })
+    },
 
     loadSavedStates ({commit}) {
         return new Promise((resolve, reject) => {
             const savedStates = storage.getSavedStates()
-            let savedStatesArray = Object.keys(savedStates)
-                    .map(stateKey => {
-                        return { label: stateKey, state: savedStates[stateKey] }
-                    })
-                    .map(stateObject => {
-                        stateObject.state = JSON.parse(stateObject.state)
-                        return stateObject
-                    })
+            let savedStateLabels = Object.keys(savedStates)
 
-            commit('setSavedStates', savedStatesArray)
+            commit('setSavedStates', savedStateLabels)
         })
     },
 
     storeGameState ({commit, state}, payload) {
         return new Promise((resolve, reject) => {
-            const stringifiedState = JSON.stringify(state)
+            const stringifiedState = JSON.stringify(payload.state)
             storage.storeaSavedState({label: payload.label, state: stringifiedState})
             resolve()
         })

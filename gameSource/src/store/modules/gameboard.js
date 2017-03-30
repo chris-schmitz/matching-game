@@ -5,6 +5,9 @@ const state = {
 }
 
 const getters = {
+    currentState (state) {
+        return state
+    },
     deck (state) {
         return state.deck
     },
@@ -92,7 +95,10 @@ const actions = {
 
     clearSelectionStack (context) {
         return new Promise((resolve, reject) => {
-            context.state.currentSelection.forEach(card => context.commit('flipCard', card))
+            // is this really the best way of solving this issue?
+            if (!context.getters.cardsMatch) {
+                context.state.currentSelection.forEach(card => context.commit('flipCard', card))
+            }
             context.commit('clearSelectionStack')
             resolve()
         })
@@ -101,6 +107,13 @@ const actions = {
     handleMatchSelection (context) {
         return new Promise((resolve, reject) => {
             context.state.currentSelection.forEach(card => context.commit('markAsMatchFound', card))
+            resolve()
+        })
+    },
+
+    loadSavedState ({commit}, savedState) {
+        return new Promise((resolve, reject) => {
+            commit('loadAState', savedState)
             resolve()
         })
     }
@@ -122,6 +135,10 @@ const mutations = {
     },
     clearSelectionStack (state) {
         state.currentSelection = []
+    },
+    loadAState (state, savedState) {
+        Object.assign(state, savedState)
+        // state = savedState
     }
 }
 

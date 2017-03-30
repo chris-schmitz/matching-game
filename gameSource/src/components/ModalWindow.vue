@@ -11,8 +11,7 @@
             </div>
 
             <div class="buttons">
-                <slot name="cancel"></slot>
-                <slot name="confirm"></slot>
+                <slot name="action-buttons"></slot>
             </div>
         </div>
     </div>

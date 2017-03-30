@@ -42,8 +42,16 @@
                 {{ message }}
             </div>
             <input slot="captureInput" v-model="captureInput">
-            <button @click="cancel" slot="cancel">Cancel</button>
-            <button @click="confirm" slot="confirm">Confirm</button>
+            <div class="action-buttons" slot="action-buttons">
+                <div>
+                    <button @click="cancel">Cancel</button>
+                </div>
+                <div>
+                    <button @click="quitWithoutSaving">Quit</button>
+                    <span>or</span>
+                    <button @click="confirm">Save & Quit</button>
+                </div>
+            </div>
         </modal>
 
     </div>
@@ -79,6 +87,7 @@
                 currentSelection: state => state.currentSelection
             }),
             ...mapGetters('gameboard', {
+                state: 'currentState', // seems slilly, but this is the quickest way to grab the game state when saving
                 deck: 'deck',
                 matchCount: 'matchCount',
                 matchesLeft: 'matchesLeftToFind',
@@ -91,8 +100,6 @@
             },
             saveAndQuit () {
                 this.$store.commit('modal/showModal', {message: 'Name your saved state!'})
-                // show a window to get the name of the save state
-                // hand off name to save and quit
             },
             confirm () {
                 // I shouldn't have to do this since I'm using arrow functions :|
@@ -101,12 +108,18 @@
                 let vm = this
                 this.$store
                     .dispatch('modal/captureInputAndHideModal')
-                    .then((label) => vm.$store.dispatch('home/storeGameState', {label}, {root: true}))
+                    .then((label) => vm.$store.dispatch('home/storeGameState', {label, state: vm.state}, {root: true}))
                     .then(() => vm.$store.dispatch('home/reset'))
                     .then(() => vm.$router.push('home'))
             },
+            quitWithoutSaving () {
+                this.$store
+                    .dispatch('modal/closeModal')
+                    .then(() => this.$store.dispatch('home/reset'))
+                    .then(() => this.$router.push('home'))
+            },
             cancel () {
-                this.$store.commit('modal/hideModal')
+                this.$store.dispatch('modal/closeModal')
             }
         },
         created () {
@@ -120,6 +133,32 @@
 <style lang='scss' scoped>
     @import '../style/colors';
     @import '../style/mixins';
+
+    .modal {
+        .action-buttons {
+            width: 100%;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            > div:nth-child(1) > button {
+                @include button($white, $red, 15pt, 5px)
+            }
+            > div:nth-child(2) {
+                > span {
+                    display: inline-block;
+                    margin: 0 5px 0 5px;
+                    font-style: italic;
+                }
+                > button:nth-child(1){
+                    @include button($white, $green, 15pt, 5px)
+                }
+                > *:nth-child(3){
+                    @include button($blue, $green, 15pt, 5px)
+                }
+            }
+        }
+    }
 
     .card {
         @include card(120px, 100px, $purple);

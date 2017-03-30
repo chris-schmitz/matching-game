@@ -29,6 +29,12 @@ const actions = {
             commit('hideModal')
             resolve(data)
         })
+    },
+    closeModal ({commit}) {
+        return new Promise((resolve, reject) => {
+            commit('hideModal')
+            resolve()
+        })
     }
 }
 

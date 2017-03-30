@@ -1,3 +1,8 @@
+// Right now this class is labeled generically but it's structure only really
+// supports saving game states. It doesn't really matter for this project (I don't
+// see this app storing anything other than game state), but if you use this class
+// as a reference in future projects consider either making the name more specific
+// or making the structure more generic.
 class BrowserStorage {
     constructor (key = 'saved-states') {
         this._savedStateKey = key
@@ -16,10 +21,8 @@ class BrowserStorage {
         }
 
         let savedStates = this.getSavedStates()
-        debugger
         let state = savedStates[label]
-        // if ()
-        return state
+        return JSON.parse(state)
     }
 
     getSavedStates () {

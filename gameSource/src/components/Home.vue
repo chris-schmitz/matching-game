@@ -45,8 +45,8 @@
                             <p>Saved Games</p>
                         </th>
                     </tr>
-                    <tr v-for="state in savedStates">
-                        <td><button  @click='loadSavedState(state.id)' v-text="state.label"></button></td>
+                    <tr v-for="label in savedStates">
+                        <td><button @click='loadASavedGame(label)' v-text="label"></button></td>
                     </tr>
                 </table>
             </div>
@@ -102,8 +102,8 @@
                 }
                 event.preventDefault()
             },
-            loadSavedState (savedState) {
-                this.$store.commit('home/loadSavedState', savedState)
+            loadASavedGame (savedStateLabel) {
+                this.$store.dispatch('home/loadASavedGame', savedStateLabel)
             },
             startGame () {
                 if (this.validBoardSize) {
