@@ -1,6 +1,5 @@
 const state = {
     currentSelection: [],
-    notification: {message: null, type: null},
     deck: []
 }
 
