@@ -120,7 +120,6 @@ const actions = {
     },
 
     restart ({dispatch}, totalCards) {
-        debugger
         dispatch('notification/clearNotification', null, {root: true})
         .then(() => {
             dispatch('gameboard/clearSelectionStack', null, {root: true})
