@@ -53,6 +53,10 @@ const mutations = {
     },
     setSavedStates (state, savedStates) {
         state.savedStates = savedStates
+    },
+    removeSavedGameLabel (state, label) {
+        let altered = state.savedStates.filter(stateLabel => stateLabel !== label)
+        state.savedStates = altered
     }
 }
 
@@ -138,6 +142,10 @@ const actions = {
             .then(() => {
                 routerr.push('/game-board')
             })
+    },
+    deleteASavedGame ({commit}, label) {
+        storage.deleteASavedState(label)
+        commit('removeSavedGameLabel', label)
     },
 
     loadSavedStates ({commit}) {

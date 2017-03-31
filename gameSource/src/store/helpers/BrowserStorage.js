@@ -25,6 +25,12 @@ class BrowserStorage {
         return JSON.parse(state)
     }
 
+    deleteASavedState (label) {
+        let states = this.getSavedStates()
+        delete states[label]
+        this.setSavedStates(states)
+    }
+
     getSavedStates () {
         let savedStates = this.store.getItem(this.savedStateKey)
         if (savedStates === null) {

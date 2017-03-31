@@ -41,12 +41,13 @@
             <div class="saved-games" v-if="showSavedStates">
                 <table>
                     <tr>
-                        <th>
+                        <th colspan="2">
                             <p>Saved Games</p>
                         </th>
                     </tr>
                     <tr v-for="label in savedStates">
                         <td><button @click='loadASavedGame(label)' v-text="label"></button></td>
+                        <td><button class="delete" @click='deleteASavedGame(label)'><span class="fa fa-close"></span></button></td>
                     </tr>
                 </table>
             </div>
@@ -59,7 +60,7 @@
 </template>
 
 <script>
-    import {mapState, mapGetters, mapMutations} from 'vuex'
+    import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 
     export default {
         data () {
@@ -102,9 +103,6 @@
                 }
                 event.preventDefault()
             },
-            loadASavedGame (savedStateLabel) {
-                this.$store.dispatch('home/loadASavedGame', savedStateLabel)
-            },
             startGame () {
                 if (this.validBoardSize) {
                     this.$store.dispatch('home/startNewGame', {totalCards: this.totalTiles})
@@ -113,12 +111,17 @@
             ...mapMutations('home', [
                 'getBoardSize',
                 'pickFromSavedGame',
-                'backToKickoff',
-                'loadSavedState'
+                'backToKickoff'
+            ]),
+            ...mapActions('home', [
+                'loadSavedState',
+                'loadASavedGame',
+                'deleteASavedGame',
+                'loadSavedStates'
             ])
         },
         created () {
-            this.$store.dispatch('home/loadSavedStates')
+            this.loadSavedStates()
         }
     }
 </script>
@@ -157,6 +160,9 @@
             }
             td:nth-child(1) {
                 text-align: right;
+            }
+            .delete{
+                @include button($white, $red, 25px, 5px);
             }
         }
         button {
