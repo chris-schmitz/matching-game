@@ -1,0 +1,18 @@
+{
+  "name": "matching-game-base",
+  "version": "1.0.0",
+  "description": "This package.json file is not meant to manage dependencies, it's really just a way of knitting commands in each of the code base's (e.g. gameSource, electron-version, etc) package.json files together.",
+  "scripts": {
+    "build:electron": "cd gameSource && npm run build:electron && cd ../electron-version && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chris-schmitz/matching-game.git"
+  },
+  "author": "Chris Schmitz <schmitz.chris@gmail.com> (https://github.com/chris-schmitz)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chris-schmitz/matching-game/issues"
+  },
+  "homepage": "https://github.com/chris-schmitz/matching-game#readme"
+}
