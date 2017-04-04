@@ -16,6 +16,7 @@ function createWinow(){
 
     appWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
+        // pathname: path.resolve(__dirname, '..', 'appindex.html'),
         protocol: 'file:',
         slashes: true
     }))
