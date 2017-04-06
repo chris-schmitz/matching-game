@@ -62,11 +62,9 @@ From there, the specific npm script run will point to either the web dev or buil
 
 ```json
 "scripts": {
-    // web work
     "dev:web": "node build/dev-server.js",
     "build:web": "BUILD_DESTINATION=web node build/build.js",
 
-    // electron work
     "dev:electron": "electron . --enable-logging electron_base/index.js",
     "build:electron": "BUILD_DESTINATION=electron webpack --config build/webpack.electron.conf.js",
 }
