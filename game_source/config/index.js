@@ -5,7 +5,7 @@ function setDestination(){
   if (process.env.BUILD_DESTINATION === 'web') {
     return path.resolve(__dirname, '../dist')
   } else if (process.env.BUILD_DESTINATION === 'electron') {
-    return path.resolve(__dirname, '../../electron-version/app')
+    return path.resolve(__dirname, '../electron_base')
   }
 }
 

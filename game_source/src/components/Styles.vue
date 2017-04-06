@@ -18,7 +18,7 @@
         </ol>
         <a>a link looks like this</a>
         <p>this is a paragraph.</p>
-        
+
         <p>These are cards on a board:</p>
         <div class="board">
             <div class="card">
@@ -41,7 +41,7 @@
 <style lang="scss" scoped>
     @import '../style/colors';
     @import '../style/mixins';
-    
+
     .style-container {
     }
 

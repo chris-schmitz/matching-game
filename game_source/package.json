@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "A simple image memeory matching game. ",
   "author": "chris-schmitz <schmitz.chris@gmail.com>",
+  "main": "electron_base/index.js",
   "private": true,
   "scripts": {
-    "dev": "node build/dev-server.js",
+    "dev:web": "node build/dev-server.js",
     "build:web": "BUILD_DESTINATION=web node build/build.js",
-    "build:electron": "BUILD_DESTINATION=electron node build/build.js",
+
+    "dev:electron": "electron . --enable-logging electron_base/index.js",
+    "build:electron": "BUILD_DESTINATION=electron webpack --config build/webpack.electron.conf.js",
+
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
@@ -29,6 +33,7 @@
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.4",
+    "electron-reload": "^1.1.0",
     "eslint": "^3.14.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-friendly-formatter": "^2.0.7",
