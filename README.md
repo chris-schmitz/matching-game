@@ -30,7 +30,7 @@ Whenever I start a new project I tend to wireframe it to get my ideas out.
 ![wireframe pic](readme_attachments/wireframe.png)
 _please excuse the overlaps, this png is showing all layers of the diagram._
 
-The wireframe can be found [in the diagrams folder](diagrams/Matching Game.xml), can be opened in [draw.io](http://www.draw.io), and and here is a more [interactive preview](https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Matching%20Game.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fchris-schmitz%2Fmatching-game%2Fmaster%2Fdiagrams%2FMatching%2520Game.xml).
+The wireframe can be found [in the diagrams folder](diagrams/), can be opened in [draw.io](http://www.draw.io), and and here is a more [interactive preview](https://www.draw.io/?lightbox=1&highlight=0000ff&edit=_blank&layers=1&nav=1&title=Matching%20Game.xml#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fchris-schmitz%2Fmatching-game%2Fmaster%2Fdiagrams%2FMatching%2520Game.xml).
 
 ## Prototypes
 
