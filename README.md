@@ -89,7 +89,7 @@ npm install
 npm run dev:web
 
 # launch a temp development electron version
-npm run dev:web
+npm run dev:electron
 ```
 
 # Building production versions
