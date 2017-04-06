@@ -17,7 +17,7 @@ This project is a matching game I built for my daughter ... aaaand a platform fo
 
 The goal of this project was to build a matching game with a component codebase that will work both on the web and on the desktop.
 
-The UI is built using [vue.js](https://www.vuejs.org), the state is maintained through the [vuex](https://github.com/vuejs/vuex), and the game is delivered via the web and to the desktop via [electron](electron.atom.io).
+The UI is built using [vue.js](https://www.vuejs.org), the state is maintained through the [vuex](https://github.com/vuejs/vuex), and the game is delivered via the web and to the desktop via [electron](https://electron.atom.io/).
 
 Vue has been my js ui/ux toolset of choice for a while now, but up until this project I've not used vuex for state management; I tended to create my own custom store for managing state. A large part of building out this project was creating a real world scenario for me to buckle down in and grok vuex. I've built one electron app before, [AppLauncher](https://github.com/chris-schmitz/app-launcher) and loved electron so this is my second big dive into it.
 
@@ -50,13 +50,13 @@ Once I had these hammered out I was comfortable with starting the actual project
 
 As stated earlier, one of the goals is to have a game UI codebase that can run both on the web and on the desktop. I'm ok with adjusting per environment a little as needed, but my hope is to reuse as much code as I can.
 
-This dictates the project structure. The starting point for the actual game code base is in the [game_code](game_code) directory. The source code (the UI) used for both web and electron is in the [src](game_code/src) folder. The particular webpack config used is what determines if you're building for the web or electron.
+This dictates the project structure. The starting point for the actual game code base is in the [game_source](game_source) directory. The source code (the UI) used for both web and electron is in the [src](game_source/src) folder. The particular webpack config used is what determines if you're building for the web or electron.
 
 If you review the webpack files found in [the game_source build folder](game_source/build) you'll find the three webpack configs that branch off the webpack dev or building logic.
 
 The files [webpack.dev.conf.js](game_source/build/webpack.dev.conf.js), [webpack.prod.conf.js](game_source/build/webpack.prod.conf.js) files determine the build configuration specific to web development. These files along with most of the other build and configuration files were genrated by [vue-cli](https://github.com/vuejs/vue-cli)'s webpack template.
 
-The file [webpack.electron.conf.js](game_source/build/webpack.electron.js) is a config file I added in to build specifically for electron.
+The file [webpack.electron.conf.js](game_source/build/webpack.electron.conf.js) is a config file I added in to build specifically for electron.
 
 From there, the specific npm script run will point to either the web dev or build scripts vs the electron dev or build scripts.
 
