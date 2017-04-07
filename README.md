@@ -94,3 +94,23 @@ npm run dev:electron
 
 # Building production versions
 The project is still being built so I haven't finished setting up the build part yet ;)
+
+## Dependencies
+If you're on a mac and you're triyng to package the electron app for windows there are a couple of dependencies you need that cannot be installed via npm.
+- [Quartz](https://www.xquartz.org/)
+    - note this will require an os logout/log back in.
+- [Wine](https://www.winehq.org/)
+    - you can install this directly, or you can install it via homebrew (which I'd suggest)
+    - [Homebrew](https://brew.sh/) // If you're a developer using a mac and you don't have homebrew you should install this anyway. Think NPM for your OS.
+
+I plan to create a more sophisticated build process in the future (in the style of the [electron-vue](https://github.com/SimulatedGREG/electron-vue) project. I wanted to use this scaffold but couldn't figure out how to fit it in well with the webpack vue-cli scaffold I started the project with), but for now I'm getting by with a very basic build script.
+
+At the moment, this basic build script will build for mac, linux, and windows. If you want to alter this, review the `package` npm script in the [`game_source/package.json`](game_source/package.json) file. In the more sophisticated version (likely the beta version) you'll be able to build for all or each of the platforms, but for now you'll have to manually change the script to fit your needs.
+
+Building and packaging the app from the terminal:
+
+```bash
+cd game_source
+npm run buildAndPack
+# This will create the packaged builds in the `_packaged_builds` folder at the root of the project.
+```

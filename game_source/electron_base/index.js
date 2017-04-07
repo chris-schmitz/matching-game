@@ -2,13 +2,13 @@ const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
 
-require('electron-reload')(__dirname, {
-    electron: path.resolve(__dirname, '..', 'node_modules', '.bin', 'electron')
-})
+// require('electron-reload')(__dirname, {
+//     electron: path.resolve(__dirname, '..', 'node_modules', '.bin', 'electron')
+// })
 
 let appWindow
 
-function createWinow(){
+function createWinow () {
     appWindow = new BrowserWindow({
         window: 1024,
         height: 780
@@ -20,7 +20,7 @@ function createWinow(){
         slashes: true
     }))
 
-    appWindow.on('close', () => win = null)
+    appWindow.on('close', () => { appWindow = null })
 }
 
 app.on('ready', createWinow)

@@ -8,11 +8,11 @@
   "scripts": {
     "dev:web": "node build/dev-server.js",
     "build:web": "BUILD_DESTINATION=web node build/build.js",
-
     "dev:electron": "electron . --enable-logging electron_base/index.js",
     "build:electron": "BUILD_DESTINATION=electron webpack --config build/webpack.electron.conf.js",
-
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "buildAndPack": "npm run build:electron && npm run package",
+    "package": "cross-env NODE_ENV=production electron-packager . --platform=all --out='../_packaged_builds' --overwrite=true"
   },
   "dependencies": {
     "vue": "^2.2.2",
@@ -33,6 +33,8 @@
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.26.4",
+    "electron": "^1.6.2",
+    "electron-packager": "^8.6.0",
     "electron-reload": "^1.1.0",
     "eslint": "^3.14.1",
     "eslint-config-standard": "^6.2.1",
