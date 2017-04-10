@@ -8,7 +8,10 @@ function initialState () {
         showKickoffButtons: true,
         showBoardSizeSelector: false,
         showSavedStates: false,
-        savedStates: []
+        savedStates: [],
+
+        showKeypad: false,
+        keypadTargetInput: ''
     }
 }
 
@@ -57,6 +60,10 @@ const mutations = {
     removeSavedGameLabel (state, label) {
         let altered = state.savedStates.filter(stateLabel => stateLabel !== label)
         state.savedStates = altered
+    },
+    showKeypad (state, payload = {show: false, for: ''}) {
+        state.showKeypad = payload.show
+        state.keypadTargetInput = payload.for
     }
 }
 
@@ -167,6 +174,10 @@ const actions = {
 
     reset ({commit}) {
         commit('loadState', initialState())
+    },
+
+    closeKeypad ({commit}) {
+        commit('showKeypad', {show: false, for: ''})
     }
 }
 

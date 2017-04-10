@@ -17,10 +17,10 @@
                             <p>Board with size</p>
                         </th>
                     <tr>
-                        <td>Width:</td><td><input v-model="width" placeholder="10" @keypress="numsOnlyPlz"></td>
+                        <td>Width:</td><td><input v-model="width" placeholder="10" @click="showKeypadIfNeeded('width')" @keypress="numsOnlyPlz"></td>
                     </tr>
                     <tr>
-                        <td>Height:</td><td><input v-model="height" placeholder="5" @keypress="numsOnlyPlz" @keyup.enter="startGame"></td>
+                        <td>Height:</td><td><input v-model="height" placeholder="5" @click="showKeypadIfNeeded('height')"  @keypress="numsOnlyPlz" @keyup.enter="startGame"></td>
                     </tr>
                     <tr>
                         <td>Total Tiles:</td><td><span v-text="totalTiles"></span></td>
@@ -56,13 +56,18 @@
         <div class="settings">
             <span class="fa fa-gear"></span>
         </div>
+
+        <keypad v-if="keypadIsVisible" :inputName="keypadTargetInput"></keypad>
+
     </div>
 </template>
 
 <script>
     import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
+    import Keypad from './Keypad'
 
     export default {
+        components: {Keypad},
         data () {
             return {}
         },
@@ -88,7 +93,9 @@
                 showKickoffButtons: state => state.showKickoffButtons,
                 showBoardSizeSelector: state => state.showBoardSizeSelector,
                 showSavedStates: state => state.showSavedStates,
-                savedStates: state => state.savedStates
+                savedStates: state => state.savedStates,
+                keypadTargetInput: state => state.keypadTargetInput,
+                keypadIsVisible: state => state.showKeypad
             }),
             ...mapGetters('home', {
                 getMoreInformation: 'getMoreInformation',
@@ -108,10 +115,16 @@
                     this.$store.dispatch('home/startNewGame', {totalCards: this.totalTiles})
                 }
             },
+            showKeypadIfNeeded (forInput) {
+                // if (window && window.process) {
+                this.showKeypad({show: true, for: forInput})
+                // }
+            },
             ...mapMutations('home', [
                 'getBoardSize',
                 'pickFromSavedGame',
-                'backToKickoff'
+                'backToKickoff',
+                'showKeypad'
             ]),
             ...mapActions('home', [
                 'loadSavedState',
@@ -121,6 +134,9 @@
             ])
         },
         created () {
+            if (window && window.process) {
+
+            }
             this.loadSavedStates()
         }
     }

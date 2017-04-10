@@ -8,13 +8,14 @@
   "scripts": {
     "dev:web": "node build/dev-server.js",
     "build:web": "BUILD_DESTINATION=web node build/build.js",
-    "dev:electron": "electron . --enable-logging electron_base/index.js",
+    "dev:electron": "webpack --watch --config build/webpack.electron.conf.js & electron . --enable-logging electron_base/index.js",
     "build:electron": "BUILD_DESTINATION=electron webpack --config build/webpack.electron.conf.js",
     "lint": "eslint --ext .js,.vue src",
     "buildAndPack": "npm run build:electron && npm run package",
     "package": "cross-env NODE_ENV=production electron-packager . --platform=all --out='../_packaged_builds' --overwrite=true"
   },
   "dependencies": {
+    "cross-env": "^4.0.0",
     "vue": "^2.2.2",
     "vue-router": "^2.2.0",
     "vuex": "^2.2.1"
