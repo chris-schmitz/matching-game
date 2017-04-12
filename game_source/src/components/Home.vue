@@ -57,7 +57,7 @@
             <span class="fa fa-gear"></span>
         </div>
 
-        <keypad v-if="keypadIsVisible" :inputName="keypadTargetInput"></keypad>
+        <keypad v-if="keypadIsVisible"></keypad>
 
     </div>
 </template>

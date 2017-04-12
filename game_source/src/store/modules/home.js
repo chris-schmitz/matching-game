@@ -28,6 +28,17 @@ const getters = {
         if (getters.totalTiles === 0) return false
 
         return getters.totalTiles % 2 === 0
+    },
+
+    // note if we refactor the board size capture to just ask for the number
+    // of cards, this can be cut out.
+    selectedInputsCurrentValue (state) {
+        if (state.keypadTargetInput === 'width') {
+            return state.boardSize.width
+        } else if (state.keypadTargetInput === 'height') {
+            return state.boardSize.height
+        }
+        return ''
     }
 }
 
