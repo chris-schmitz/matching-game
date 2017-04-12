@@ -65,6 +65,7 @@
 <script>
     import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
     import Keypad from './Keypad'
+    import config from '../app-config'
 
     export default {
         components: {Keypad},
@@ -116,9 +117,9 @@
                 }
             },
             showKeypadIfNeeded (forInput) {
-                // if (window && window.process) {
-                this.showKeypad({show: true, for: forInput})
-                // }
+                if (config.showKeypad) {
+                    this.showKeypad({show: true, for: forInput})
+                }
             },
             ...mapMutations('home', [
                 'getBoardSize',

@@ -189,6 +189,17 @@ const actions = {
 
     closeKeypad ({commit}) {
         commit('showKeypad', {show: false, for: ''})
+    },
+
+    setBoardSizeInputByInputName ({commit}, payload = {inputName: null, newValue: null}) {
+        return new Promise((resolve, reject) => {
+            if (payload.inputName === 'width') {
+                commit('setBoardWidth', payload.newValue)
+            } else if (payload.inputName === 'height') {
+                commit('setBoardHeight', payload.newValue)
+            }
+            resolve()
+        })
     }
 }
 
