@@ -12,7 +12,9 @@
     "build:electron": "BUILD_DESTINATION=electron webpack --config build/webpack.electron.conf.js",
     "lint": "eslint --ext .js,.vue src",
     "buildAndPack": "npm run build:electron && npm run package",
-    "package": "cross-env NODE_ENV=production electron-packager . --platform=all --out='../_packaged_builds' --overwrite=true"
+    "package": "cross-env NODE_ENV=production electron-packager . --platform=all --out='../_packaged_builds' --overwrite=true",
+    "buildAndPack:pi": "npm run build:electron && npm run package:pi",
+    "package:pi": "cross-env NODE_ENV=production electron-packager . --platform=linux --arch=armv7l --out='../_packaged_builds' --overwrite=true"
   },
   "dependencies": {
     "cross-env": "^4.0.0",
