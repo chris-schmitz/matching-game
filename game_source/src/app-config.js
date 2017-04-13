@@ -2,7 +2,6 @@
 // from the build scripts so you don't have to remember to do it manually
 // at buildAndPack time
 
-
 const config = {
     showKeypad: false
 }
