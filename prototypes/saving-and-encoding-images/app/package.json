@@ -1,0 +1,13 @@
+{
+  "name": "saving-and-encoding-images",
+  "version": "0.0.0",
+  "description": "Prototype to figure out saving of images for the matching game. ",
+  "main": "./dist/main.js",
+  "dependencies": {
+    "babel-runtime": "^6.23.0",
+    "vue": "^2.1.10",
+    "vue-electron": "^1.0.6"
+  },
+  "devDependencies": {},
+  "author": "chris-schmitz <schmitz.chris@gmail.com>"
+}
