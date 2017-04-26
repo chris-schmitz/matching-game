@@ -54,8 +54,10 @@
             <button @click='backToKickoff'>Back</button>
         </div>
         <div class="settings">
-            <span class="fa fa-gear"></span>
+            <span @click="toggleSettings" class="fa fa-gear"></span>
         </div>
+
+        <settings v-if="settingsAreVisible"></settings>
 
         <keypad v-if="keypadIsVisible"></keypad>
 
@@ -66,9 +68,10 @@
     import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
     import Keypad from './Keypad'
     import config from '../app-config'
+    import Settings from './Settings'
 
     export default {
-        components: {Keypad},
+        components: {Keypad, Settings},
         data () {
             return {}
         },
@@ -90,13 +93,14 @@
                 }
             },
             ...mapState('home', {
-                boardSize: state => state.boardSize,
-                showKickoffButtons: state => state.showKickoffButtons,
-                showBoardSizeSelector: state => state.showBoardSizeSelector,
-                showSavedStates: state => state.showSavedStates,
-                savedStates: state => state.savedStates,
-                keypadTargetInput: state => state.keypadTargetInput,
-                keypadIsVisible: state => state.showKeypad
+                boardSize: 'boardSize',
+                showKickoffButtons: 'showKickoffButtons',
+                showBoardSizeSelector: 'showBoardSizeSelector',
+                showSavedStates: 'showSavedStates',
+                savedStates: 'savedStates',
+                keypadTargetInput: 'keypadTargetInput',
+                keypadIsVisible: state => state.showKeypad,
+                settingsAreVisible: state => state.showSettings
             }),
             ...mapGetters('home', {
                 getMoreInformation: 'getMoreInformation',
@@ -125,7 +129,8 @@
                 'getBoardSize',
                 'pickFromSavedGame',
                 'backToKickoff',
-                'showKeypad'
+                'showKeypad',
+                'toggleSettings'
             ]),
             ...mapActions('home', [
                 'loadSavedState',

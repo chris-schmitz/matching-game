@@ -11,7 +11,9 @@ function initialState () {
         savedStates: [],
 
         showKeypad: false,
-        keypadTargetInput: ''
+        keypadTargetInput: '',
+
+        showSettings: false
     }
 }
 
@@ -75,6 +77,9 @@ const mutations = {
     showKeypad (state, payload = {show: false, for: ''}) {
         state.showKeypad = payload.show
         state.keypadTargetInput = payload.for
+    },
+    toggleSettings (state) {
+        state.showSettings = !state.showSettings
     }
 }
 
@@ -198,6 +203,13 @@ const actions = {
             } else if (payload.inputName === 'height') {
                 commit('setBoardHeight', payload.newValue)
             }
+            resolve()
+        })
+    },
+
+    toggleSettings ({commit}) {
+        return new Promise((resolve, reject) => {
+            commit('toggleSettings')
             resolve()
         })
     }
