@@ -10,7 +10,7 @@
 
 class LocalStorage {
 
-  constructor (defaultStorageKeyPrefix = 'cs-matching-game:') {
+  constructor (defaultStorageKeyPrefix = 'cs-matching-game') {
     this._storageKeyPrefix = defaultStorageKeyPrefix
     this.localStore = localStorage
   }
@@ -35,6 +35,11 @@ class LocalStorage {
 
   updateItem (key, data) {
     // let storedData = this.getItem(this.buildFullKey(key))
+    // determine how the data is going to be appended.
+    // does it need to be pushed onto an array? added as property to an object? concatenated onto a string?
+    // do we want to commit to one style of storage and make everything fit that? (e.g. every value in local storage will be an object and we will always add properties?)
+    // maybe allow the caller to pass in a callback function so that it can handle the data? keep this generic
+    // do we want to do away with update and just force the caller to do the updating logic on it's side. we just get and set (a la browser storage's pattern)
   }
 
   buildFullKey (key) {

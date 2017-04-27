@@ -41,9 +41,9 @@
 </template>
 
 <script>
-  // import Storage from '../Storage'
+  import Storage from '../Storage'
 
-  // const dataStore = new Storage()
+  const dataStore = new Storage()
 
   export default {
     data () {
@@ -136,7 +136,6 @@
       },
 
       activateDragover (e) {
-        console.log('dragover active')
         e.preventDefault()
         this.dragoverIsActive = true
         return false
@@ -147,7 +146,6 @@
         return false
       },
       addFiles (e) {
-        console.log('dropped!')
         e.preventDefault()
         this.files = Object.keys(e.dataTransfer.files)
               .map(key => e.dataTransfer.files[key])
@@ -167,9 +165,8 @@
         // if not, add them to the storage key
         // store key
         return new Promise((resolve, reject) => {
-          debugger
-          // dataStore.setItem('encoded-images', this.filesAsBase64Strings)
-          reject('woops!')
+          dataStore.setItem('encoded-images', this.filesAsBase64Strings)
+          resolve()
         })
       },
       updateStoredImageDisplay () {
