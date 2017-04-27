@@ -31,11 +31,11 @@
       <ul>
         <li v-for="name in fileNames" v-text="name"></li>
       </ul>
-      <ul>
-        <li v-for="string in filesAsBase64Strings">
-          <img :src="`${string}`">
-        </li>
-      </ul>
+    </div>
+
+    <h3>Base64 encoded and resized</h3>
+    <div class="rendered-images-container">
+        <img v-for="string in filesAsBase64Strings" :src="`${string}`">
     </div>
   </div>
 </template>
@@ -51,8 +51,8 @@
         files: [],
         filesAsBase64Strings: [],
         resizeDimensions: {
-          width: 100,
-          height: 100
+          width: 500,
+          height: 300
         }
       }
     },
@@ -96,8 +96,6 @@
         let vm = this
 
         return new Promise((resolve, reject) => {
-          debugger
-          // let img = document.createElement('img')
           let img = new Image()
 
           img.onload = () => {
@@ -107,20 +105,28 @@
             canvas.width = vm.resizeDimensions.width
             canvas.height = vm.resizeDimensions.height
 
-            // at this point, the `this` context is referring to the img element we created
-            ctx.drawImage(this, 0, 0, vm.resizeDimensions.width, vm.resizeDimensions.height)
-            let uri = canvas.toDataUrl()
+            // I no shame lifted this from the stackoverflow answer here:
+            // http://stackoverflow.com/questions/23104582/scaling-an-image-to-fit-on-canvas#answer-23105310
+            // I understand what's going on now, but it would have taken me forever to figure this out on my own.
+            function drawImageScaled (img, ctx) {
+              var canvas = ctx.canvas
+              var hRatio = canvas.width / img.width
+              var vRatio = canvas.height / img.height
+              // var ratio = Math.max(hRatio, vRatio) // max acts like a crop to canvas
+              var ratio = Math.min(hRatio, vRatio)
+              var centerShiftX = (canvas.width - img.width * ratio) / 2
+              var centerShiftY = (canvas.height - img.height * ratio) / 2
+              ctx.clearRect(0, 0, canvas.width, canvas.height)
+              ctx.drawImage(img, 0, 0, img.width, img.height, centerShiftX, centerShiftY, img.width * ratio, img.height * ratio)
+            }
+            drawImageScaled(img, ctx)
+
+            let uri = canvas.toDataURL()
             resolve(uri)
           }
 
           img.src = base64Image
         })
-        // let image =
-        // const canvas = this.$el.querySelector('#for-image-resize')
-        // pica.resize(image, canvas)
-        //   .then(result => {
-        //     debugger
-        //   })
       },
       activateDragover (e) {
         e.preventDefault()
@@ -178,7 +184,10 @@
     }
 
     .file-list-container {
-      position: absolute;
+      border: 1px solid orangered;
+      height: 90px;
+      overflow: auto;
+      padding: 10px;
       > p {
         text-align: left;
       }
@@ -188,8 +197,17 @@
       }
 
       > ul > li > img {
-        height: 100px;
+        // height: 100px;
       }
+    }
+
+    .rendered-images-container {
+      overflow: auto;
+      height: 300px;
+      padding: 10px;
+      border: 2px dashed orangered;
+      // background: #D8E8F9;
+      width: 500px;
     }
   }
 </style>
