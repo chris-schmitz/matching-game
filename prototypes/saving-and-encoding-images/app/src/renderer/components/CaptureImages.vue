@@ -41,8 +41,9 @@
 </template>
 
 <script>
-  // import picaConstructor from 'pica'
-  // const pica = picaConstructor()
+  // import Storage from '../Storage'
+
+  // const dataStore = new Storage()
 
   export default {
     data () {
@@ -70,6 +71,11 @@
           .then(result => {
             this.filesAsBase64Strings = result
           })
+      },
+      filesAsBase64Strings () {
+        this.addEncodedImagesToStorage()
+          .then(this.updateStoredImageDisplay)
+          .catch(this.handleError)
       }
     },
     computed: {
@@ -128,7 +134,9 @@
           img.src = base64Image
         })
       },
+
       activateDragover (e) {
+        console.log('dragover active')
         e.preventDefault()
         this.dragoverIsActive = true
         return false
@@ -139,6 +147,7 @@
         return false
       },
       addFiles (e) {
+        console.log('dropped!')
         e.preventDefault()
         this.files = Object.keys(e.dataTransfer.files)
               .map(key => e.dataTransfer.files[key])
@@ -149,6 +158,29 @@
       returnFalse (e) {
         e.preventDefault()
         return false
+      },
+
+      addEncodedImagesToStorage () {
+        // get current key in local storage
+        // decode json
+        // check to see if images already exist (?)
+        // if not, add them to the storage key
+        // store key
+        return new Promise((resolve, reject) => {
+          debugger
+          // dataStore.setItem('encoded-images', this.filesAsBase64Strings)
+          reject('woops!')
+        })
+      },
+      updateStoredImageDisplay () {
+        // get stored images from storage
+        // decode the json
+        // loop through each image and add it to a prop
+      },
+
+      handleError (error) {
+        console.error(error)
+        alert(error)
       }
     }
   }
