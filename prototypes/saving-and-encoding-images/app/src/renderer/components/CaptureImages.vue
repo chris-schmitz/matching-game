@@ -36,11 +36,26 @@
     <h3>Base64 encoded and resized</h3>
     <div class="rendered-images-container">
         <div class="thumbnail" v-for="imageObject in filesAsBase64Strings">
-          <img :src="`${imageObject.image}`">
+          <img @click="enlarge(imageObject.image)" :src="`${imageObject.image}`">
           <span @click="deleteFile(imageObject)">X</span>
         </div>
     </div>
     <button v-if="filesAsBase64Strings.length > 0" @click='deleteAll'>Delete All</button>
+
+
+    <!--
+      Really, the enlarged image component should become a generic
+      lightbox component that handles the lightbox layout display.
+      That way we can pass through the enlarged image or the spinner,
+      it's all the same overlay and window logic. This is already well
+      passed the goal of this prototype so I'm just going to leave the
+      redundancy in, but when building it into the main project, make a
+      generic lightbox component.
+    -->
+    <enlarged-image v-if="enlargedImageSource">
+      <img :src="enlargedImageSource">
+    </enlarged-image>
+
     <div v-if="showSpinner" class="spinner-mask-window">
       <div class="spinner-mask">
         <span>Imagine a spinner here ;P</span>
@@ -51,14 +66,18 @@
 
 <script>
   import Storage from '../Storage'
+  import EnlargedImage from './EnlargedImage'
+  import bus from '../EventBus'
 
   const dataStore = new Storage()
 
   export default {
+    components: {EnlargedImage},
     data () {
       return {
         dragoverIsActive: false,
         showSpinner: false,
+        enlargedImageSource: null,
         files: [],
         filesAsBase64Strings: [],
         resizeDimensions: {
@@ -214,6 +233,13 @@
         // loop through each image and add it to a prop
       },
 
+      enlarge (imageSource) {
+        this.enlargedImageSource = imageSource
+      },
+      closeEnlargedImage () {
+        this.enlargedImageSource = null
+      },
+
       handleError (error) {
         console.error(error)
         alert(error)
@@ -221,6 +247,7 @@
     },
     created () {
       this.updateStoredImageDisplay()
+      bus.$on('close-enlarge-image', this.closeEnlargedImage)
     }
   }
 </script>
