@@ -21,8 +21,12 @@
     padding: 0;
   }
 
+  #app {
+    padding: 20px;
+  }
+
   html,
-  body { height: 100%; }
+  body { height: 100%; box-sizing: border-box;}
 
   body {
     align-items: center;

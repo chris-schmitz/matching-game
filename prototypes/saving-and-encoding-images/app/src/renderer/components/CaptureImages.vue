@@ -35,8 +35,12 @@
 
     <h3>Base64 encoded and resized</h3>
     <div class="rendered-images-container">
-        <img v-for="string in filesAsBase64Strings" :src="`${string}`">
+        <div class="thumbnail" v-for="imageObject in filesAsBase64Strings">
+          <img :src="`${imageObject.image}`">
+          <span @click="deleteFile(imageObject)">X</span>
+        </div>
     </div>
+    <button v-if="filesAsBase64Strings.length > 0" @click='deleteAll'>Delete All</button>
   </div>
 </template>
 
@@ -68,14 +72,14 @@
             let promiseArray = result.map(this.resizeImage)
             return Promise.all(promiseArray)
           })
-          .then(result => {
-            this.filesAsBase64Strings = result
-          })
-      },
-      filesAsBase64Strings () {
-        this.addEncodedImagesToStorage()
+          .then(this.addEncodedImagesToStorage)
           .then(this.updateStoredImageDisplay)
           .catch(this.handleError)
+          // .then(result => {
+          //   this.filesAsBase64Strings = result
+          // })
+      },
+      filesAsBase64Strings () {
       }
     },
     computed: {
@@ -158,18 +162,43 @@
         return false
       },
 
-      addEncodedImagesToStorage () {
+      deleteFile (fileObject) {
+        let storedImages = dataStore.getItem('encoded-images')
+        let imagesWithoutTarget = storedImages.filter(image => image.guid !== fileObject.guid)
+        dataStore.setItem('encoded-images', imagesWithoutTarget)
+        this.updateStoredImageDisplay()
+      },
+
+      deleteAll () {
+        dataStore.setItem('encoded-images', [])
+        this.updateStoredImageDisplay()
+      },
+
+      addEncodedImagesToStorage (base64EncodedFiles) {
         // get current key in local storage
         // decode json
         // check to see if images already exist (?)
         // if not, add them to the storage key
         // store key
         return new Promise((resolve, reject) => {
-          dataStore.setItem('encoded-images', this.filesAsBase64Strings)
+          let imageObjects = base64EncodedFiles.map(image => {
+            return {guid: dataStore.generateGUID(), image}
+          })
+
+          let storedImages = dataStore.getItem('encoded-images')
+
+          if (!Array.isArray(storedImages)) {
+            storedImages = []
+          }
+
+          dataStore.setItem('encoded-images', storedImages.concat(imageObjects))
+
           resolve()
         })
       },
       updateStoredImageDisplay () {
+        let data = dataStore.getItem('encoded-images')
+        this.filesAsBase64Strings = data
         // get stored images from storage
         // decode the json
         // loop through each image and add it to a prop
@@ -179,16 +208,28 @@
         console.error(error)
         alert(error)
       }
+    },
+    created () {
+      this.updateStoredImageDisplay()
     }
   }
 </script>
 
 <style lang="scss" scoped>
+
   .capture-images-container {
 
     * {
       margin-bottom: 10px;
 
+    }
+
+    button {
+      font-size: 25px;
+      background-color: orangered;
+      border: none;
+      padding: 10px;
+      color: white;
     }
 
     .drop-target {
@@ -236,7 +277,43 @@
       padding: 10px;
       border: 2px dashed orangered;
       // background: #D8E8F9;
-      width: 500px;
+      // width: 300px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+      .thumbnail {
+        padding: 10px;
+        margin: 5px;
+        background: rgba(orangered, .1);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        span {
+          position: absolute;
+          top: 0;
+          right: 0;
+          font-size: 25px;
+          font-weight: bold;
+          cursor: pointer;
+          display: inline-block;
+          height: 40px;
+          width: 40px;
+          // background: red;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        img {
+          width: 100px;
+          // height: 40px;
+        }
     }
   }
+
 </style>
