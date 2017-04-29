@@ -41,6 +41,11 @@
         </div>
     </div>
     <button v-if="filesAsBase64Strings.length > 0" @click='deleteAll'>Delete All</button>
+    <div v-if="showSpinner" class="spinner-mask-window">
+      <div class="spinner-mask">
+        <span>Imagine a spinner here ;P</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -53,6 +58,7 @@
     data () {
       return {
         dragoverIsActive: false,
+        showSpinner: false,
         files: [],
         filesAsBase64Strings: [],
         resizeDimensions: {
@@ -151,6 +157,9 @@
       },
       addFiles (e) {
         e.preventDefault()
+
+        this.showSpinner = true
+
         this.files = Object.keys(e.dataTransfer.files)
               .map(key => e.dataTransfer.files[key])
 
@@ -199,6 +208,7 @@
       updateStoredImageDisplay () {
         let data = dataStore.getItem('encoded-images')
         this.filesAsBase64Strings = data
+        this.showSpinner = false
         // get stored images from storage
         // decode the json
         // loop through each image and add it to a prop
@@ -218,6 +228,23 @@
 <style lang="scss" scoped>
 
   .capture-images-container {
+
+    .spinner-mask-window {
+      background-color: rgba(black, .5);
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .spinner-mask {
+        background-color: white;
+        padding: 30px;
+      }
+    }
 
     * {
       margin-bottom: 10px;
