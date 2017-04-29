@@ -1,6 +1,14 @@
 # saving-and-encoding-images
 
-> Prototype to figure out saving of images for the matching game. 
+> Prototype to figure out saving of images for the matching game.
+
+This prototype allows you to drag and drop images onto the window. The images are then base64 encoded, saved to localStorage, and then rendered out to the display.
+
+The encoded images can then be enlarged by clicking on the thumbnail.
+
+The images can be deleted by clicking the 'X' on the thumbnail. Deleting the images will remove them from local storage.
+
+![demo gif](readme-attachments/aaaaaand-done.gif)
 
 ## Build Setup
 
