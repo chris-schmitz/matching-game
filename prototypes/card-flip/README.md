@@ -2,7 +2,7 @@
 
 > A prototype for the card flipping action and general gameplay of the matching game.
 
-![demo]()
+![demo](readmeAttachments/card_flip_prototype_demo.gif)
 
 This prototype is me working out exactly how the matching game gameplay will work and feel. It's also one of my first real dives into vuex outside of tutorials.
 
