@@ -6,7 +6,7 @@
             class="front"
             :style="cardBackground"
         >
-            <slot></slot>
+            <!--<slot></slot>-->
         </div>
     </div>
 </template>
@@ -32,23 +32,24 @@
                     }
                 }
             },
-            backgroundType () {
-                // if (this.card.face.slice(0, 2) === 'fa') {
-                //     return this.constants.fileTypes.FONTAWESOME
-                // }
-                if (this.card.face.slice(0, 4) === 'http') {
-                    return this.constants.fileTypes.URL
-                }
-                return this.constants.fileTypes.FILE
-            },
+            // backgroundType () {
+            //     // if (this.card.face.slice(0, 2) === 'fa') {
+            //     //     return this.constants.fileTypes.FONTAWESOME
+            //     // }
+            //     if (this.card.face.slice(0, 4) === 'http') {
+            //         return this.constants.fileTypes.URL
+            //     }
+            //     return this.constants.fileTypes.FILE
+            // },
 
             // This feels a bit heavy handed. consider refactoring later.
             cardBackground () {
-                if (this.backgroundType === this.constants.fileTypes.URL) {
-                    return {'background': `url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7)`}
-                    // return {'background-image': `url("${this.card.face}")`}
-                }
-                return ''
+                return {'background-image': `url("${this.card.face}")`}
+                // if (this.backgroundType === this.constants.fileTypes.URL) {
+                //     return {'background': `url(data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7)`}
+                //     // return {'background-image': `url("${this.card.face}")`}
+                // }
+                // return ''
             }
         },
         methods: {
@@ -68,13 +69,15 @@
     .card-container {}
 
     .card {
-        @include card(120px, 100px, $purple);
+        @include card(200px, 200px, $purple);
     }
     .front {
-        @include card(120px, 100px, $green, true);
+        @include card(200px, 200px, $green, true);
         display: flex;
         justify-content: center;
         align-items: stretch;
+        background-repeat: none;
+        background-size: cover;
 
         > div {
             flex: 1;

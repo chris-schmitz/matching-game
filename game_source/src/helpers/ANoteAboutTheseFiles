@@ -1,0 +1,7 @@
+Both BrowserStorage and LocalStorage are seeking to do the same thing: save data in local browser storage
+
+I wrote the browserStorage class first when I was only concerned with saving game states.
+Now that we know we need to save multiple types of data into local storage it would be worth merging these two classes or at least
+abstracting the common parts and extending classes for game state and card storage.
+
+regardless, it's not something I'm going to do right now ;P

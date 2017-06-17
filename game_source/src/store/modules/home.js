@@ -1,6 +1,5 @@
 import router from '../../router/index'
-import storage from '../helpers/BrowserStorage'
-// import _ from 'lodash'
+import storage from '../../helpers/BrowserStorage'
 
 function initialState () {
     return {

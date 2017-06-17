@@ -40,7 +40,7 @@
           <span @click="deleteFile(imageObject)">X</span>
         </div>
     </div>
-    <button v-if="filesAsBase64Strings.length > 0" @click='deleteAll'>Delete All</button>
+    <button v-if="filesExistInStorage" @click='deleteAll'>Delete All</button>
 
 
     <!--
@@ -93,6 +93,7 @@
         })
 
         Promise.all(promiseArray)
+          .then(this.excludeAnyDuplicateImages)
           .then(result => {
             let promiseArray = result.map(this.resizeImage)
             return Promise.all(promiseArray)
@@ -100,16 +101,16 @@
           .then(this.addEncodedImagesToStorage)
           .then(this.updateStoredImageDisplay)
           .catch(this.handleError)
-          // .then(result => {
-          //   this.filesAsBase64Strings = result
-          // })
       },
-      filesAsBase64Strings () {
-      }
+      // filesAsBase64Strings () {
+      // }
     },
     computed: {
       fileNames () {
         return this.files.map(file => file.name)
+      },
+      filesExistInStorage () {
+        return this.filesAsBase64Strings && this.filesAsBase64Strings.length > 0
       }
     },
     methods: {
@@ -131,6 +132,11 @@
         let vm = this
 
         return new Promise((resolve, reject) => {
+          let filetype = base64Image.match(/^.*\/(\w+);/)
+          if (filetype && filetype[1] === 'gif') {
+            resolve(base64Image)
+          }
+
           let img = new Image()
 
           img.onload = () => {
@@ -140,7 +146,7 @@
             canvas.width = vm.resizeDimensions.width
             canvas.height = vm.resizeDimensions.height
 
-            // I no shame lifted this from the stackoverflow answer here:
+            // I no-shame lifted this from the stackoverflow answer here:
             // http://stackoverflow.com/questions/23104582/scaling-an-image-to-fit-on-canvas#answer-23105310
             // I understand what's going on now, but it would have taken me forever to figure this out on my own.
             function drawImageScaled (img, ctx) {
@@ -232,6 +238,15 @@
         // decode the json
         // loop through each image and add it to a prop
       },
+      excludeAnyDuplicateImages (base64EncodedFiles) {
+        // get existing images in localStorage
+        // filter over them
+          // compare base64 strings (how efficent is this going to be ?!)
+          // exclude any that already exist in localstorage
+          // resolve remaining
+          // reject if none are left
+        //
+      },
 
       enlarge (imageSource) {
         this.enlargedImageSource = imageSource
@@ -243,7 +258,25 @@
       handleError (error) {
         console.error(error)
         alert(error)
+      },
+
+      // determining storage available in localStorage
+      determineStorageSize () {
+        return new Promise((resolve, reject) => {
+          navigator.webkitPersistentStorage.queryUsageAndQuota(
+            (usedBytes, grantedBytes) => resolve({usedBytes, grantedBytes}),
+            (error) => reject(error)
+          )
+        })
+      },
+      requestMoreStorageIfNecessary (storageStats) {
+        debugger
+        console.log(storageStats)
       }
+    },
+    mounted () {
+      // this.determineStorageSize()
+      //   .then(this.requestMoreStorageIfNecessary)
     },
     created () {
       this.updateStoredImageDisplay()
