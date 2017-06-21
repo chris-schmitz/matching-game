@@ -101,7 +101,7 @@
           .then(this.addEncodedImagesToStorage)
           .then(this.updateStoredImageDisplay)
           .catch(this.handleError)
-      },
+      }
       // filesAsBase64Strings () {
       // }
     },

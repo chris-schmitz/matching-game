@@ -28,7 +28,7 @@
             "runtimeArgs": [
                 ".", "--enable-logging"
             ],
-            "console": "integratedTerminal"
+            // "console": "integratedTerminal"
         }
     ]
 }
